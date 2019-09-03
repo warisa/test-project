@@ -12,24 +12,16 @@ export default class prayTime extends Component {
       this.state = { //ประกาศตัวแปรใน this.state นอกstate = ค่าคงที่
         timeToDay: '',
         time: [],
+        date: ''
       }
       this.notif = new NotifService(this.onRegister.bind(this), this.onNotif.bind(this));
     }
-    componentDidMount() {
-      var that = this;
-      var date = new Date().getDate(); //Current Date
-      var month = new Date().getMonth() + 1; //Current Month
-      var year = new Date().getFullYear(); //Current Year
-      that.setState({
-        //Setting the value of the date time
-        date:
-          date + '/' + month + '/' + year,
-      });
-    }
-    componentDidMount() {
-      Axios.get('http://10.4.56.94/prayertime')
-      .then(response => this.setState({ time: response.data }))
-    }
+
+  componentDidMount() {
+    Axios.get('http://10.4.56.94/prayertime')
+    .then(response => this.setState({ time: response.data, date: '' + new Date().getDate() + '/' + (new Date().getMonth() + 1) + '/' + new Date().getFullYear() }))
+  }
+
   render() {
         return (
           <Container>
