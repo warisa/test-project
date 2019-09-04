@@ -5,6 +5,7 @@ import Axios from 'axios';
 import Icon from 'react-native-vector-icons/Ionicons';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import NotifService from '../NotiService';
+import appConfig from '../app.json'; 
 
 export default class prayTime extends Component {
   constructor(){
@@ -12,7 +13,9 @@ export default class prayTime extends Component {
       this.state = { //ประกาศตัวแปรใน this.state นอกstate = ค่าคงที่
         timeToDay: '',
         time: [],
-        date: ''
+        date: '',
+        senderId: appConfig.senderID,
+        switchValue: false
       }
       this.notif = new NotifService(this.onRegister.bind(this), this.onNotif.bind(this));
     }
@@ -28,11 +31,6 @@ export default class prayTime extends Component {
           <Header style={{backgroundColor: '#CC6600'}}>
           <Body>
             <Title>Pray Time</Title>
-            <Button onPress={() => { this.notif.localNotif() }}
-              title="Noti"
-              color="#841584"
-              accessibilityLabel="noti"
-            />
           </Body>
         </Header>
         <Content>
@@ -56,7 +54,10 @@ export default class prayTime extends Component {
                           <Text style={{fontSize:20}}>{praytime.prayerType}</Text>
                         </Body>
                         <Right>
-                          <Switch value={false}/>
+                        <Text style={styles.textStyle}>{this.state.switchValue ? this.notif.localNotif() :'off'}</Text>  
+                        <Switch  
+                          value={this.state.switchValue}  
+                          onValueChange ={(switchValue)=>this.setState({switchValue})}/>
                         </Right>
                       </ListItem>
                       )
