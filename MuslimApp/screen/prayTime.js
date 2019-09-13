@@ -15,7 +15,28 @@ export default class prayTime extends Component {
         time: [],
         date: '',
         senderId: appConfig.senderID,
-        switchValue: false
+        switchValue: [
+          {
+            name: "Fajr",
+            value: false
+          },
+          {
+            name: "Dhuhr",
+            value: false
+          },
+          {
+            name: "Asr",
+            value: false
+          },
+          {
+            name: "Maghrib",
+            value: false
+          },
+          {
+            name: "Ishaa",
+            value: false
+          }
+        ]
       }
       this.notif = new NotifService(this.onRegister.bind(this), this.onNotif.bind(this));
     }
@@ -23,6 +44,45 @@ export default class prayTime extends Component {
   componentDidMount() {
     Axios.get('http://10.4.56.94/prayertime')
     .then(response => this.setState({ time: response.data, date: '' + new Date().getDate() + '/' + (new Date().getMonth() + 1) + '/' + new Date().getFullYear() }))
+  }
+
+  parseTime( t ) {
+    var d = new Date();
+    var time = t.match( /(\d+)(?::(\d\d))?\s*(p?)/ );
+    d.setHours( parseInt( time[1]) + (time[3] ? 12 : 0) );
+    d.setMinutes( parseInt( time[2]) || 0 );
+    return d;
+  }
+
+  setNotif(name, time){
+    if(name == "Fajr"){
+      this.notif.scheduleNotif();
+      //this.notif.fajrNotif(this.parseTime(time))
+    }
+    if(name == "Dhuhr"){
+      this.notif.DhuhrNotif(this.parseTime(time))
+    }
+    if(name == "Asr"){
+      this.notif.AsrNotif(this.parseTime(time))
+    }
+    if(name == "Maghrib"){
+      this.notif.MaghribNotif(this.parseTime(time))
+    }
+    if(name == "Ishaa"){
+      this.notif.IshaaNotif(this.parseTime(time))
+    }
+  }
+
+  onChangeFunction = (data, i, time) => {
+    let newData = JSON.parse(JSON.stringify(this.state.switchValue))
+    newData[i].value = data
+
+    this.setState({
+      switchValue: newData 
+    })
+    if(data == true){
+      this.setNotif(newData[i].name, time)
+    }
   }
 
   render() {
@@ -44,7 +104,7 @@ export default class prayTime extends Component {
             <Content>
               <List>
                   { 
-                    this.state.time.map( praytime => 
+                    this.state.time.map( (praytime, i) => 
                       <ListItem key={praytime.prayerTimeId} thumbnail>
                         <Left>
                           <Icon name="md-alarm" style={{color:'black'}} size={30}/>
@@ -54,10 +114,11 @@ export default class prayTime extends Component {
                           <Text style={{fontSize:20}}>{praytime.prayerType}</Text>
                         </Body>
                         <Right>
-                        <Text style={styles.textStyle}>{this.state.switchValue ? this.notif.localNotif() :'off'}</Text>  
+                        <Text style={styles.textStyle}>{this.state.switchValue[i].value ? 'on' :'off'}</Text>  
                         <Switch  
-                          value={this.state.switchValue}  
-                          onValueChange ={(switchValue)=>this.setState({switchValue})}/>
+                          value={this.state.switchValue[i].value}  
+                          onValueChange = {(value) => this.onChangeFunction(value,i,praytime.prayerTime)}  
+                          />
                         </Right>
                       </ListItem>
                       )
