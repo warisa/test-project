@@ -14,8 +14,9 @@ export default class login extends Component {
           console.log("Login cancelled");
         } else {
           const accessData = await AccessToken.getCurrentAccessToken();
-          Axios.post('http://10.4.56.94/', { facebookToken: accessData.accessToken })
+          Axios.post('http://10.4.56.94/login', { facebookToken: accessData.accessToken })
           .then( response => {
+            this.props.navigation.navigate('HOME')
           })
         }
       },
