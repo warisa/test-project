@@ -4,7 +4,7 @@ import Card from './Card';
 import CardSection from './CardSection';
 import { ScrollView } from 'react-native-gesture-handler';
 import {Button, Icon,Header,Left,Right,Body, Container,Title} from 'native-base';
-// import MapApp from '../component/MapApp';
+import MapApp from '../component/MapApp';
 import Axios from 'axios';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
@@ -118,10 +118,10 @@ export default class restaurantDetail extends Component {
               </View>
             {/* <Image style={styles.imageStyle} source={{ uri: image }}/> */}
             </CardSection>
-            {/* <MapApp 
+            <MapApp 
               placeName={this.state.place.placeName}
               jsonMapTest={{latitude: this.state.latitude, longitude: this.state.longitude}}
-            /> */}
+            />
             <Text style={{color:'black',fontSize:17,fontWeight:'bold',marginTop:5}}>รายละเอียดร้านเพิ่มเติม</Text>
             <Card>
               <CardSection>

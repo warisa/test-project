@@ -14,7 +14,7 @@ import prayTime from './screen/prayTime';
 const StackNavigator = createStackNavigator(
   {
     LOGIN:{ 
-        screen: login,
+        screen: home,
         navigationOptions:{
             header: null
         }

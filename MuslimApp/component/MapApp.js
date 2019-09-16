@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet,Button } from 'react-native';
 import MapView from 'react-native-maps';
-import openMap from 'react-native-open-maps';
+// import openMap from 'react-native-open-maps';
 
 class MapApp extends Component {
   constructor(props) {
@@ -25,7 +25,7 @@ class MapApp extends Component {
                 showsUserLocation={true}
             >
             <MapView.Marker
-                onPress={() => { openMap({ latitude: this.props.jsonMapTest.latitude, longitude: this.props.jsonMapTest.longitude }); }}
+                // onPress={() => { openMap({ latitude: this.props.jsonMapTest.latitude, longitude: this.props.jsonMapTest.longitude }); }}
                 coordinate={this.props.jsonMapTest}
                 title={this.props.placeName}
              />
