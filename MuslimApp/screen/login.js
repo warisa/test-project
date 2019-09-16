@@ -6,24 +6,34 @@ import { AccessToken, LoginManager  } from 'react-native-fbsdk';
 import Axios from 'axios';
 
 export default class login extends Component {
-  
+
+  constructor(props){
+    super(props)
+  }
+
   async loginFacebook(){
-    LoginManager.logInWithPermissions(["public_profile","email"]).then(
-      async function(result) {
+    var loginCheck = await LoginManager.logInWithPermissions(['public_profile']).then(
+      function(result) {
         if (result.isCancelled) {
-          console.log("Login cancelled");
+          alert('Login was cancelled');
+          return false;
         } else {
-          const accessData = await AccessToken.getCurrentAccessToken();
-          Axios.post('http://10.4.56.94/login', { facebookToken: accessData.accessToken })
-          .then( response => {
-            this.props.navigation.navigate('HOME')
-          })
+          return true;
         }
       },
       function(error) {
-        console.log("Login fail with error: " + error);
+        alert('Login failed with error: ' + error);
+        return false;
       }
     );
+    if(loginCheck == true){
+      // const accessData = await AccessToken.getCurrentAccessToken();
+      // Axios.post('http://10.4.56.94/login', { facebookToken: accessData.accessToken })
+      // .then( response => {
+      //   console.log(response)
+      // })
+      this.props.navigation.navigate('HOME')
+    }
   }
 
   render() {
