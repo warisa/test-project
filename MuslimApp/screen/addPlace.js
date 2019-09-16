@@ -1,31 +1,43 @@
 import React, { Component } from 'react';
-import { StyleSheet,Text } from 'react-native';
-import { Container, Header, Content, Form, Item, Input, Label } from 'native-base';
+import { Container, Header, Content, Form, Item, Input, Icon , Picker } from 'native-base';
+import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default class addPlace extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-
+    constructor(props) {
+        super(props);
+        this.state = {
+          selected: "key1"
+        };
+      }
+      onValueChange(value: string) {
+        this.setState({
+          selected: value
+        });
+      }
   render() {
     return (
       <Container>
-        <Content>
-          <Item regular style={styles.container}>
-            <Input placeholder='ชื่อร้านอาหาร' />
+          <Content>
+          <Item regular style={{margin:10}}>
+            <Icon active name='home' />
+            <Input placeholder='ชื่อสถานที่' />
           </Item>
+          <Picker
+              mode="dropdown"
+              iosHeader="Select your SIM"
+              iosIcon={<Icon name="arrow-down" />}
+              style={{ width: undefined }}
+              selectedValue={this.state.selected}
+              onValueChange={this.onValueChange.bind(this)}
+            >
+              <Picker.Item label="Wallet" value="key0" />
+              <Picker.Item label="ATM Card" value="key1" />
+              <Picker.Item label="Debit Card" value="key2" />
+              <Picker.Item label="Credit Card" value="key3" />
+              <Picker.Item label="Net Banking" value="key4" />
+            </Picker>
         </Content>
-    </Container>
+      </Container>
     );
   }
 }
-const styles = StyleSheet.create({
-  container:{
-      marginLeft : 10,
-      marginRight: 10,
-      marginTop: 10
-  }
-});
-

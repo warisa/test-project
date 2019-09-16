@@ -30,7 +30,7 @@ export default class restaurantDetail extends Component {
       }
     }
 
-  componentDidMount() {
+  componentWillMount() {
     Axios.get('http://10.4.56.94/restaurant/'+ this.state.placeId)
     .then(response => {
       this.setState({ place: response.data[0], image: response.data,
@@ -125,7 +125,7 @@ export default class restaurantDetail extends Component {
             <Text style={{color:'black',fontSize:17,fontWeight:'bold',marginTop:5}}>รายละเอียดร้านเพิ่มเติม</Text>
             <Card>
               <CardSection>
-                <View style={{margin:10}}>
+                <View >
                 {
                   this.state.place.placeCarParking == 1 ?
                   (
@@ -160,7 +160,7 @@ export default class restaurantDetail extends Component {
                   )
                 }
                 </View>
-                <View style={{margin:10}}>
+                <View >
                  {
                   this.state.place.placeAirconditioner == 1 ?
                   (
@@ -194,7 +194,7 @@ export default class restaurantDetail extends Component {
                   )
                 }
                 </View>
-                <View style={{margin:10}}>
+                <View>
                 {
                   this.state.place.placeReserve == 1 ?
                   (

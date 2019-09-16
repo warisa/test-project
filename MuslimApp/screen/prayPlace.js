@@ -3,7 +3,9 @@ import { View, Text, StyleSheet , TouchableHighlight, Image} from 'react-native'
 import Card from './Card';
 import CardSection from './CardSection';
 import Axios from 'axios';
-import { Item,Icon,Input} from 'native-base';
+import { Container, Footer, FooterTab, Button, Item, Input } from 'native-base';
+import Icon from 'react-native-vector-icons/Ionicons';
+import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { ScrollView } from 'react-native-gesture-handler';
 
 export default class prayPlace extends Component {
@@ -14,7 +16,7 @@ export default class prayPlace extends Component {
         category:[]
       }
     }
-    componentDidMount() {
+    componentWillMount() {
       Axios.get('http://10.4.56.94/prayerplace')
       .then(response => this.setState({ place2: response.data }))
     }
@@ -29,7 +31,7 @@ export default class prayPlace extends Component {
     }
     render() {
       return (
-        <View>   
+        <Container>   
           <Item>
            <Icon name="ios-search" />
            <Input placeholder="Search" value={this.setState.search} onChangeText={(event) => this.searchPrayerPlace(event) }/>
@@ -37,13 +39,13 @@ export default class prayPlace extends Component {
          <Card>
            <CardSection>
              <View style={styles.container1}>
-                      <TouchableHighlight onPress={() => this.props.navigation.navigate('restaurantPrayer',{placePrayerRoom :"1"})}>
+                      <TouchableHighlight onPress={() => this.props.navigation.navigate('RESTAURANTPRAY',{placePrayerRoom :"1"})}>
                         <Image source={require('../image/restaurant.png')} style={{width:90,height:80,marginRight:10}}/>
                       </TouchableHighlight>
-                      <TouchableHighlight onPress={() => this.props.navigation.navigate('categoryPrayer',{categoryName :"Shopping Mall"})}>
+                      <TouchableHighlight onPress={() => this.props.navigation.navigate('CATEGORYPRAY',{categoryName :"Shopping Mall"})}>
                         <Image source={require('../image/shop.png')} style={{width:100,height:80,marginRight:10}}/>
                       </TouchableHighlight>
-                      <TouchableHighlight onPress={() => this.props.navigation.navigate('categoryPrayer',{categoryName :"Mosque"})}>
+                      <TouchableHighlight onPress={() => this.props.navigation.navigate('CATEGORYPRAY',{categoryName :"Mosque"})}>
                         <Image source={require('../image/masjid.png')} style={{width:90,height:70,marginRight:10}}/>
                       </TouchableHighlight>
                       </View>
@@ -56,7 +58,7 @@ export default class prayPlace extends Component {
                                   <View style={{ marginTop:10,width:'100%'}}>
                                     <CardSection>
                                     <View >
-                                      <TouchableHighlight onPress={() => this.props.navigation.navigate('prayerDetail',{placeId:prayerplace.placeId})}>
+                                      <TouchableHighlight onPress={() => this.props.navigation.navigate('PRAYDETAIL',{placeId:prayerplace.placeId})}>
                                         <Image source={{uri: prayerplace.imageName}} style={{width: 150, height: 100, margin: 7}}></Image>
                                       </TouchableHighlight>
                                     </View>
@@ -72,7 +74,31 @@ export default class prayPlace extends Component {
                       })
                     }        
           </ScrollView>
-        </View>
+          <Footer>
+            <FooterTab style={{backgroundColor: '#FF8200'}}>
+              <Button onPress={() => this.props.navigation.navigate('HOME')}>
+                <Icon name="ios-home" style={{color:'white'}} size={25}/>
+                <Text style={{color:'white',fontSize:10}} >Home</Text>
+              </Button>
+              <Button onPress={() => this.props.navigation.navigate('RESTAURANT')}>
+                <Icon name="md-restaurant" style={{color:'white'}} size={25}/>
+                <Text style={{color:'white',fontSize:10}} >Restaurant</Text>
+              </Button>
+              <Button>
+                <Icons name="home-map-marker" style={{color:'white'}} size={25}/>
+                <Text style={{color:'white',fontSize:10}} >Pray Place</Text>
+              </Button>
+              <Button onPress={() => this.props.navigation.navigate('PRAYTIME')}>
+                <Icon name="ios-alarm" style={{color:'white'}} size={25}/>
+                <Text style={{color:'white',fontSize:10}} >Pray Time</Text>
+              </Button>
+              <Button onPress={() => this.props.navigation.navigate('')}>
+                <Icon name="ios-contact" style={{color:'white'}} size={25}/>
+                <Text style={{color:'white',fontSize:10}} >Profile</Text>
+              </Button>
+            </FooterTab>
+          </Footer>
+        </Container>
       );
     }
   }

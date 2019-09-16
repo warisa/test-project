@@ -20,7 +20,7 @@ export default class prayDetail extends Component {
           }
         }
     
-      componentDidMount() {
+      componentWillMount() {
         Axios.get('http://10.4.56.94/prayerplace/'+ this.state.placeId)
         .then(response => this.setState({ place: response.data[0], 
           latitude: this.state.latitude + response.data[0].latitude, longitude: this.state.longitude + response.data[0].longitude  })) 
