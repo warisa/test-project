@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "24339890493",
+    "firebase_url": "https://daily-life-of-muslims.firebaseio.com",
+    "project_id": "daily-life-of-muslims",
+    "storage_bucket": "daily-life-of-muslims.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24339890493:android:bba7478f67e2d5b16c0554",
+        "android_client_info": {
+          "package_name": "com.muslimapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24339890493-mffpdfr53ak35fnmsqg4qgk20f73uatp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9PQd5w6ppCcL3yVjkR6dnyRXLiMgbPJo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24339890493-mffpdfr53ak35fnmsqg4qgk20f73uatp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

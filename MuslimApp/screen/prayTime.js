@@ -27,7 +27,7 @@ export default class prayTime extends Component {
     }
 
     componentWillMount() {
-      Axios.get('http://10.4.56.94/prayertime')
+      Axios.get('http://10.4.56.94/praytime')
       .then(response => this.setState({ time: response.data }))
     }
 
