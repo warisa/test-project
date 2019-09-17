@@ -11,6 +11,10 @@ export default class login extends Component {
     super(props)
   }
 
+  componentWillMount() {
+    //this.loginFacebook()
+  }
+
   async loginFacebook(){
     var loginCheck = await LoginManager.logInWithPermissions(['public_profile']).then(
       function(result) {
@@ -27,13 +31,17 @@ export default class login extends Component {
       }
     );
     if(loginCheck == true){
-      // const accessData = await AccessToken.getCurrentAccessToken();
-      // Axios.post('http://10.4.56.94/login', { facebookToken: accessData.accessToken })
-      // .then( response => {
-      //   console.log(response)
-      // })
-      this.props.navigation.navigate('HOME')
+      const accessData = await AccessToken.getCurrentAccessToken();
+      Axios.post('http://10.4.56.94/login', { facebookToken: accessData.accessToken })
+      .then(response => {
+        console.log(response)
+        this.props.navigation.navigate('HOME')
+      })
+      .catch(error => {
+        console.log(error);
+      });
     }
+
   }
 
   render() {
