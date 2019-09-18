@@ -10,11 +10,13 @@ import categoryPray from './screen/categoryPray';
 import restaurantPray from './screen/restaurantPray';
 import prayDetail from './screen/prayDetail';
 import prayTime from './screen/prayTime';
+import profile from './screen/profile';
+import reviewPage from './screen/reviewPage';
 
 const StackNavigator = createStackNavigator(
   {
     LOGIN:{ 
-        screen: login,
+        screen: home,
         navigationOptions:{
             header: null
         }
@@ -106,6 +108,28 @@ const StackNavigator = createStackNavigator(
         screen: prayTime,
         navigationOptions:{
             title: 'Pray Time',
+            headerLeft: null,
+            headerTintColor: '#fff',
+            headerStyle: {
+                backgroundColor: '#FF8200'
+            }
+        }
+    },
+    REVIEW:{
+        screen: reviewPage,
+        navigationOptions:{
+            title: 'Review',
+            headerLeft: null,
+            headerTintColor: '#fff',
+            headerStyle: {
+                backgroundColor: '#FF8200'
+            }
+        }
+    },
+    PROFILE:{
+        screen: profile,
+        navigationOptions:{
+            title: 'Profile',
             headerLeft: null,
             headerTintColor: '#fff',
             headerStyle: {
