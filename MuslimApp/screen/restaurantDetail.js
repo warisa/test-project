@@ -218,7 +218,7 @@ export default class restaurantDetail extends Component {
             {/* <Button style={[styles.buttonContainer, styles.reviewButton]}  onPress={() => this.props.navigation.navigate('review')}>
                 <Text>Review</Text>
             </Button> */}
-                <Button style={[styles.buttonContainer, styles.reviewButton]} onPress={() => this.props.navigation.navigate('review')}>
+                <Button style={[styles.buttonContainer, styles.reviewButton]}  onPress={() => this.props.navigation.navigate('REVIEW',{placeId:this.state.place.placeId})}>
                   <Material name='rate-review' style={{color:'white'}} size={20}/>
                   <Text style={{color:'white',marginLeft:10}}>Review</Text>
                 </Button>
@@ -280,6 +280,6 @@ const styles = {
     borderRadius:30,
   },
   reviewButton: {
-    backgroundColor: '#CC6600',
+    backgroundColor: '#FF8200',
   }
 };
