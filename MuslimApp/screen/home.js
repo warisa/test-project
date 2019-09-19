@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 import firebase from 'react-native-firebase';
-import { StyleSheet, View, Image, TouchableHighlight,AsyncStorage, Alert, Text } from 'react-native';
+import { StyleSheet, View, Image, TouchableHighlight, Alert, Text } from 'react-native';
 import { Container, Content, Body, Footer, FooterTab, Button } from 'native-base';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Axios from 'axios';
 import { ScrollView } from 'react-native-gesture-handler';
-// import {AsyncStorage} from '@react-native-community/async-storage';
 
 export default class home extends Component {
   constructor(){
@@ -169,7 +168,7 @@ export default class home extends Component {
               <Icon name="ios-alarm" style={{color:'white'}} size={25}/>
               <Text style={{color:'white',fontSize:10}} >Pray Time</Text>
             </Button>
-            <Button onPress={() => this.props.navigation.navigate('')}>
+            <Button onPress={() => this.props.navigation.navigate('PROFILE')}>
               <Icon name="ios-contact" style={{color:'white'}} size={25}/>
               <Text style={{color:'white',fontSize:10}} >Profile</Text>
             </Button>
