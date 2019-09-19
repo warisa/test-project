@@ -2,26 +2,50 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
-  Image
+  Image,
+  AsyncStorage
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { List, ListItem,Button,Footer, FooterTab, Container, Content } from 'native-base';
+import Axios from 'axios';
+
 
 export default class profile extends Component {
 
   constructor(){
     super()
       this.state = { //ประกาศตัวแปรใน this.state นอกstate = ค่าคงที่
-        userId: []
+        user: {
+          userFName: '',
+          userLName: '',
+          userEMail: '',
+          userImage: ''
+        },
+        userId: 1
       }
     }
 
   componentWillMount() {
-      Axios.get('http://10.4.56.94/login'+userId)
-      .then(response => this.setState({ user: response.data }))
-    }
+    this.checkUser()
+    this.getUser()
+  }
   
+  async checkUser() {
+    let user = '';
+    try {
+      user = await AsyncStorage.getItem('user') || null;
+    } catch (error) {
+      this.props.navigation.navigate('LOGIN')
+    }
+    this.setState({ userId: user })
+  }
+
+  async getUser(){
+    await Axios.get('http://10.4.56.94/profile/' + this.state.userId)
+    .then(response => this.setState({ user: response.data[0] }))
+    console.log(this.state.user)
+  }
 
   async logout() {
     try {
@@ -37,14 +61,14 @@ export default class profile extends Component {
     return (
       <Container>
         <Content>
-        <Image style={styles.avatar} source={{uri: 'https://bootdey.com/img/Content/avatar/avatar6.png'}}/>
-        <Text style={styles.name}>John Doe</Text>
+        <Image style={styles.avatar} source={{ uri: this.state.user.userImage }}/>
+        <Text style={styles.name}>{ this.state.user.userFName }  { this.state.user.userLName }</Text>
         <List>
           <ListItem>
-            <Text>Email: </Text>
+            <Text>Email: { this.state.user.userEMail }</Text>
           </ListItem>
           <ListItem>
-            <Text>สถานที่ที่เพิ่ม: </Text>
+            <Text>ประวัตการเพิ่มสถานที่: </Text>
           </ListItem>
           <ListItem>
             <Text>ประวัติการรีวิว: </Text>
