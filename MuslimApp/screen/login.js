@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, AsyncStorage } from 'react-native';
 import { Container, Title, Button, Icon, Left, Right, Body, Content } from "native-base";
 import Entypo from 'react-native-vector-icons/Entypo';
 import { AccessToken, LoginManager  } from 'react-native-fbsdk';
@@ -12,7 +12,33 @@ export default class login extends Component {
   }
 
   componentWillMount() {
-    //this.loginFacebook()
+    this.checkGoHome();
+  }
+
+  async checkGoHome(){
+    var dataUser = await this.checkUser();
+    if(dataUser != 'none' && dataUser != null && dataUser != ''){
+      this.props.navigation.navigate('HOME')
+    }
+  }
+
+  async checkUser() {
+    let user = '';
+    try {
+      user = await AsyncStorage.getItem('user') || null;
+      console.log(user)
+    } catch (error) {
+      console.log(error.message);
+    }
+    return user;
+  }
+
+  async saveUser (user) {
+    try {
+      await AsyncStorage.setItem('user', '' + user.userId);
+    } catch (error) {
+      console.log(error.message);
+    }
   }
 
   async loginFacebook(){
@@ -34,8 +60,11 @@ export default class login extends Component {
       const accessData = await AccessToken.getCurrentAccessToken();
       Axios.post('http://10.4.56.94/login', { facebookToken: accessData.accessToken })
       .then(response => {
-        console.log(response)
-        this.props.navigation.navigate('HOME')
+        const  user = response.data;
+        console.log(user)
+        console.log('-----------------------------')
+        this.saveUser(user)
+        this.checkGoHome();
       })
       .catch(error => {
         console.log(error);
