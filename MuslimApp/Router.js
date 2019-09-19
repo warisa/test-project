@@ -16,7 +16,7 @@ import reviewPage from './screen/reviewPage';
 const StackNavigator = createStackNavigator(
   {
     LOGIN:{ 
-        screen: home,
+        screen: login,
         navigationOptions:{
             header: null
         }
@@ -119,7 +119,6 @@ const StackNavigator = createStackNavigator(
         screen: reviewPage,
         navigationOptions:{
             title: 'Review',
-            headerLeft: null,
             headerTintColor: '#fff',
             headerStyle: {
                 backgroundColor: '#FF8200'
