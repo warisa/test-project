@@ -24,10 +24,13 @@ export default class reviewPage extends Component {
   render() {
     return (
       <Container>
+          <View style={{flex:1}}>
         <Content>
             <Image source={{uri:this.state.place.imageName}}
-                style={{width: '100%', height: 200}}/>
-            <Text style={styles.avatar}>REVIEW</Text>
+                style={{width: '100%', height: 200,}} blurRadius={3}/>
+                <View style={styles.avatar}>
+            <Text style={styles.fontStyle}>REVIEW</Text>
+            </View>
         </Content>
         <Footer>
             <FooterTab style={{backgroundColor: '#FF8200'}}>
@@ -53,6 +56,7 @@ export default class reviewPage extends Component {
               </Button>
             </FooterTab>
           </Footer>
+          </View>
       </Container>
     );
   }
@@ -60,14 +64,19 @@ export default class reviewPage extends Component {
 
 const styles = StyleSheet.create({
     avatar: {
-        width: 130,
-        height: 130,
-        borderRadius: 63,
+        width:120,
+        height:40,
+        borderRadius: 70,
         borderWidth: 4,
         borderColor: "white",
-        marginBottom:10,
         alignSelf:'center',
         position: 'absolute',
-        marginTop:130
+        marginTop:150,
+        backgroundColor:'orange'
       },
+      fontStyle:{
+        alignSelf:'center',
+        justifyContent:'center',
+        fontSize:20
+      }
 })
