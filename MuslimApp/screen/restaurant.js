@@ -8,17 +8,18 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 export default class restaurant extends Component {
 
-//   render() {
-//     return (
-//       <View style={styles.container}>
-//         <Text style={{color: 'white'}}> restaurant </Text>
-//       </View>
-//     );
-//   }
-// }
+static navigationOptions = ({ navigation }) => {
+  return {
+    headerRight: (
+      <AntDesign name="plus" style={{color:'white',marginRight:10}} size={25} onPress={() => navigation.navigate('ADDLOCATION')}/>
+    )
+  };
+};
+
 constructor(){
   super()
     this.state = { //ประกาศตัวแปรใน this.state นอกstate = ค่าคงที่
