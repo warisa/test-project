@@ -21,14 +21,12 @@ export default class profile extends Component {
           userLName: '',
           userEMail: '',
           userImage: ''
-        },
-        userId: 1
+        }
       }
     }
 
   componentWillMount() {
     this.checkUser()
-    this.getUser()
   }
   
   async checkUser() {
@@ -38,11 +36,11 @@ export default class profile extends Component {
     } catch (error) {
       this.props.navigation.navigate('LOGIN')
     }
-    this.setState({ userId: user })
+    this.getUser(user)
   }
 
-  async getUser(){
-    await Axios.get('http://10.4.56.94/profile/' + this.state.userId)
+  async getUser(user){
+    await Axios.get('http://10.4.56.94/profile/' + user)
     .then(response => this.setState({ user: response.data[0] }))
     console.log(this.state.user)
   }
@@ -65,7 +63,7 @@ export default class profile extends Component {
         <Text style={styles.name}>{ this.state.user.userFName }  { this.state.user.userLName }</Text>
         <List>
           <ListItem>
-            <Text>Email: { this.state.user.userEMail }</Text>
+            <Text>Email: { this.state.user.userEmail }</Text>
           </ListItem>
           <ListItem>
             <Text>ประวัตการเพิ่มสถานที่: </Text>
