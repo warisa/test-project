@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity} from 'react-native';
+import { View, Text, Image, TouchableOpacity, AsyncStorage } from 'react-native';
 import Card from './Card';
 import CardSection from './CardSection';
 import { ScrollView } from 'react-native-gesture-handler';
-import {Button, Icon,Header,Left,Right,Body, Container,Title} from 'native-base';
+import {Button, Icon,Header,Left,Right,Body, Container,Input , List, ListItem} from 'native-base';
 import MapApp from '../component/MapApp';
 import Axios from 'axios';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -26,18 +26,42 @@ export default class restaurantDetail extends Component {
         isImageViewVisible: false,
         latitude: 0.0, 
         longitude: 0.0,
-        placeId: props.navigation.getParam('placeId')
+        review:[],
+        placeId: props.navigation.getParam('placeId'),
+        userId: '',
+        userImage: '',
+        reviewTextContent: ''
       }
     }
 
+    async checkImage() {
+      let user = '';
+      let image = '';
+      try {
+        user = await AsyncStorage.getItem('user') || null;
+        image = await AsyncStorage.getItem('image') || null;
+      } catch (error) {
+      }
+      this.setState({ userId: user, userImage: image })
+    }
+
   componentWillMount() {
+    this.checkImage();
     Axios.get('http://10.4.56.94/restaurant/'+ this.state.placeId)
     .then(response => {
       this.setState({ place: response.data[0], image: response.data,
-                      latitude: this.state.latitude + response.data[0].latitude, longitude: this.state.longitude + response.data[0].longitude
+        latitude: this.state.latitude + response.data[0].latitude, longitude: this.state.longitude + response.data[0].longitude
       });
+      this.getReview();
       this.setImage();
     })
+  }
+
+  getReview(){
+    Axios.get('http://10.4.56.94/review/'+ this.state.placeId)
+      .then(response => {
+        this.setState({ review: response.data});
+      });
   }
 
   setImage(){
@@ -46,6 +70,15 @@ export default class restaurantDetail extends Component {
     });
   }
   
+  addReview(){
+    Axios.post('http://10.4.56.94/addreview', { userId: this.state.userId, placeId: this.state.placeId, reviewContent: this.state.reviewTextContent })
+    .then(response => {
+      if(response.data){
+        this.getReview();
+        this.setState({ reviewTextContent: '' })
+      }
+    });
+  }
 
   render() {
     const{isImageViewVisible} = this.state;
@@ -123,7 +156,6 @@ export default class restaurantDetail extends Component {
               jsonMapTest={{latitude: this.state.latitude, longitude: this.state.longitude}}
             />
             <Text style={{color:'black',fontSize:17,fontWeight:'bold',marginTop:5}}>รายละเอียดร้านเพิ่มเติม</Text>
-            <Card>
               <CardSection>
                 <View >
                 {
@@ -213,17 +245,42 @@ export default class restaurantDetail extends Component {
                 }
                 </View>
               </CardSection>
+              <Text style={{color:'black',fontSize:20,fontWeight:'bold'}}>รีวิวร้านอาหาร</Text>
+              <List>
+              <ListItem thumbnail>
+                <Left>
+                <Image style={styles.avatar} source={{ uri: this.state.userImage }}/>
+                </Left>
+                <Body>
+                  <Input onChangeText={(text) => this.setState({ reviewTextContent: text })} value={this.state.reviewTextContent} placeholder="เขียนรีวิว..." />
+                </Body>
+              </ListItem>
+              { 
+                this.state.review.map( review => 
+                  <ListItem key={review.reviewId} thumbnail>
+                  <Left>
+                    <Image style={styles.avatar} source={{uri:review.userImage}}/>
+                  </Left>
+                  <Body>
+                    <Text>{review.userFName} {review.userLName}</Text>
+                    <Text>{review.reviewContent}</Text>
+                  </Body>
+                  <Right>
+                  <Text style={{fontSize:10,color:'gray'}}>{review.reviewDate}</Text>
+                  <Text style={{fontSize:10,color:'gray'}}>{review.reviewTime}</Text>
+                  </Right>
+                  </ListItem>
+                )
+              }
+              </List>
+                      
             </Card>
             <View style={{justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
-            {/* <Button style={[styles.buttonContainer, styles.reviewButton]}  onPress={() => this.props.navigation.navigate('review')}>
-                <Text>Review</Text>
-            </Button> */}
-                <Button style={[styles.buttonContainer, styles.reviewButton]}  onPress={() => this.props.navigation.navigate('REVIEW',{placeId:this.state.place.placeId})}>
+                <Button style={[styles.buttonContainer, styles.reviewButton]}  onPress={() => { this.addReview() }}>
                   <Material name='rate-review' style={{color:'white'}} size={20}/>
                   <Text style={{color:'white',marginLeft:10}}>Review</Text>
                 </Button>
             </View>
-        </Card>
         </ScrollView>
         </Container>
     );
@@ -234,6 +291,11 @@ const styles = {
     flexDirection: 'column',
     justifyContent: 'space-around',
     marginLeft: 10
+  },
+  avatar: {
+    width: 30,
+    height: 30,
+    borderRadius: 63,
   },
   thumbnailStyle: {
     height: 90,
