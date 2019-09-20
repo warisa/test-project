@@ -7,8 +7,9 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { List, ListItem,Button,Footer, FooterTab, Container, Content } from 'native-base';
+import { List, ListItem,Button,Footer, FooterTab, Container, Content, Left, Right, Body } from 'native-base';
 import Axios from 'axios';
+import Material from 'react-native-vector-icons/MaterialIcons';
 
 
 export default class profile extends Component {
@@ -25,7 +26,7 @@ export default class profile extends Component {
       }
     }
 
-  componentWillMount() {
+  componentDidMount() {
     this.checkUser()
   }
   
@@ -58,18 +59,39 @@ export default class profile extends Component {
   render() {
     return (
       <Container>
-        <Content>
+        <Content style={{marginTop:30}}>
         <Image style={styles.avatar} source={{ uri: this.state.user.userImage }}/>
         <Text style={styles.name}>{ this.state.user.userFName }  { this.state.user.userLName }</Text>
         <List>
-          <ListItem>
-            <Text>Email: { this.state.user.userEmail }</Text>
+          <ListItem thumbnail>
+            <Left>
+              <Text style={{fontWeight:'bold',fontSize:17}}>Email:</Text>
+            </Left>
+            <Body>
+              <Text> { this.state.user.userEmail }</Text>
+            </Body>
           </ListItem>
-          <ListItem>
-            <Text>ประวัตการเพิ่มสถานที่: </Text>
+          <ListItem thumbnail>
+            <Left>
+              <Icons name='map-marker-plus' style={{color:'black'}} size={20}/>
+            </Left>
+            <Body>
+              <Text>ประวัติการเพิ่มสถานที่: </Text>
+            </Body>
+            <Right>
+              <Icon name="ios-arrow-forward" style={{color:'gray',marginRight:10}} size={25} onPress={()  => this.props.navigation.navigate('REVIEW')}/>
+            </Right>
           </ListItem>
-          <ListItem>
-            <Text>ประวัติการรีวิว: </Text>
+          <ListItem thumbnail>
+            <Left>
+              <Material name='rate-review' style={{color:'black'}} size={20}/>
+            </Left>
+            <Body>
+              <Text>ประวัติการรีวิว: </Text>
+            </Body>
+            <Right>
+              <Icon name="ios-arrow-forward" style={{color:'gray',marginRight:10}} size={25} onPress={()  => this.props.navigation.navigate('REVIEW')}/>
+            </Right>
           </ListItem>
         </List>
         <Button style={styles.buttonContainer} onPress={() => this.logout()}><Text>logout</Text></Button>
