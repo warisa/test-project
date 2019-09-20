@@ -12,6 +12,7 @@ import prayDetail from './screen/prayDetail';
 import prayTime from './screen/prayTime';
 import profile from './screen/profile';
 import reviewPage from './screen/reviewPage';
+import addPlace from './screen/addPlace';
 
 const StackNavigator = createStackNavigator(
   {
@@ -130,6 +131,16 @@ const StackNavigator = createStackNavigator(
         navigationOptions:{
             title: 'Profile',
             headerLeft: null,
+            headerTintColor: '#fff',
+            headerStyle: {
+                backgroundColor: '#FF8200'
+            }
+        }
+    },
+    ADDLOCATION:{
+        screen: addPlace,
+        navigationOptions:{
+            title: 'ADD LOCATION',
             headerTintColor: '#fff',
             headerStyle: {
                 backgroundColor: '#FF8200'
