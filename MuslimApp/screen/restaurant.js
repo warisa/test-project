@@ -114,7 +114,7 @@ constructor(){
               <Icon name="ios-alarm" style={{color:'white'}} size={25}/>
               <Text style={{color:'white',fontSize:10}} >Pray Time</Text>
             </Button>
-            <Button onPress={() => this.props.navigation.navigate('')}>
+            <Button onPress={() => this.props.navigation.navigate('PROFILE')}>
               <Icon name="ios-contact" style={{color:'white'}} size={25}/>
               <Text style={{color:'white',fontSize:10}} >Profile</Text>
             </Button>
