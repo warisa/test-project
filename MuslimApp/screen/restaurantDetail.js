@@ -269,7 +269,7 @@ export default class restaurantDetail extends Component {
                     <Text>{review.reviewContent}</Text>
                   </Body>
                   <Right>
-                  <Text style={{fontSize:10,color:'gray'}}>{Moment(review.reviewDate).format('d MMM YYYY')}</Text>
+                  <Text style={{fontSize:10,color:'gray'}}>{Moment(review.reviewDate).format('DD MMM YYYY')}</Text>
                   <Text style={{fontSize:10,color:'gray'}}>{review.reviewTime}</Text>
                   </Right>
                   </ListItem>

@@ -65,7 +65,7 @@ export default class reviewPage extends Component {
                      <Left>
                       <Body>
                         <Text>{review.placeName}</Text>
-                        <Text style={{color:'gray'}}>{Moment(review.reviewDate).format('d MMM YYYY')} {review.reviewTime}</Text>
+                        <Text style={{color:'gray'}}>{Moment(review.reviewDate).format('DD MMM YYYY')} {review.reviewTime}</Text>
                       </Body>
                     </Left>
                   </CardItem>
