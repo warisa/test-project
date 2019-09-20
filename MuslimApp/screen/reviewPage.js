@@ -1,78 +1,124 @@
 import React, { Component } from 'react';
-import { View, Image, StyleSheet,Text} from 'react-native';
+import { View, Image, StyleSheet,Text,AsyncStorage} from 'react-native';
 import Axios from 'axios';
-import { Container, Content,Footer, FooterTab,Button } from 'native-base';
-import Icon from 'react-native-vector-icons/Ionicons';
-import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Container, Content,Right,Body,Left,List,ListItem,Card, CardItem } from 'native-base';
+import Material from 'react-native-vector-icons/MaterialIcons';
+import Moment from 'moment';
 
 export default class reviewPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        place: [],
-        placeId: props.navigation.getParam('placeId')
+      user: {
+        userId:'',
+        userFName: '',
+        userLName: '',
+        userEmail: '',
+        userImage: ''
+      },
+      review:[]
     };
   }
 
   componentWillMount() {
-    Axios.get('http://10.4.56.94/restaurant/'+ this.state.placeId)
+    this.checkUser();
+    Axios.get('http://10.4.56.94/reviewHistory/1'+ this.state.user.userId)
     .then(response => {
-      this.setState({ place: response.data[0]})
-    })
+      this.setState({ review: response.data});
+  })
 }
+
+  async checkUser() {
+    let user = '';
+    try {
+      user = await AsyncStorage.getItem('user') || null;
+    } catch (error) {
+      this.props.navigation.navigate('LOGIN')
+    }
+    this.getUser(user)
+  }
+
+  async getUser(user){
+    await Axios.get('http://10.4.56.94/profile/' + user)
+    .then(response => this.setState({ user: response.data[0] }))
+    console.log(this.state.user)
+  }
 
   render() {
     return (
       <Container>
-          <View style={{flex:1}}>
         <Content>
-            <Image source={{uri:this.state.place.imageName}}
-                style={{width: '100%', height: 200,}} blurRadius={3}/>
-                <View style={styles.avatar}>
-            <Text style={styles.fontStyle}>REVIEW</Text>
-            </View>
+        
+            <ListItem thumbnail>
+                <Left>
+                <Image style={styles.avatar} source={{ uri: this.state.user.userImage }}/>
+                </Left>
+                <Body>
+                  <Text style={{fontSize:17}}>{this.state.user.userFName} {this.state.user.userLName}</Text>
+                </Body>
+            </ListItem>
+       
+        { 
+                this.state.review.map( review => 
+                <Card>
+                  <CardItem key={review.reviewId}>
+                     <Left>
+                      <Body>
+                        <Text>{review.placeName}</Text>
+                        <Text style={{color:'gray'}}>{Moment(review.reviewDate).format('d MMM YYYY')} {review.reviewTime}</Text>
+                      </Body>
+                    </Left>
+                  </CardItem>
+                  <CardItem>
+                    <Image source={{uri:review.imageName}} style={{height: 200, width: null, flex: 1}}/>
+                  </CardItem>
+                  <CardItem>
+                    <Material name='rate-review' style={{color:'black'}} size={20}/>
+                    <Text style={{marginLeft:10}}>{review.reviewContent}</Text>
+                  </CardItem>
+            
+                  </Card>
+                )
+              }
+            {/* <CardItem>
+            <Left>
+                <Body>
+                  <Text>{this.state.review.placeName}</Text>
+                  <Text note>{Moment(this.state.review.reviewDate).format('d MMM YYYY')} {this.state.review.reviewTime}</Text>
+                </Body>
+              </Left>
+            </CardItem>
+            <CardItem cardBody>
+              <Image source={{uri: 'https://www.bltbangkok.com/public/core/uploaded/images/EatingOut/ThaiFoods/10%e0%b8%a3%e0%b9%89%e0%b8%b2%e0%b8%99%e0%b8%ad%e0%b8%b2%e0%b8%ab%e0%b8%b2%e0%b8%a3%e0%b9%84%e0%b8%97%e0%b8%a2%e0%b8%9e%e0%b8%b2%e0%b9%81%e0%b8%a1%e0%b9%88%e0%b8%97%e0%b8%b2%e0%b8%99_%e0%b8%ad%e0%b8%a3%e0%b8%a3%e0%b8%96%e0%b8%a3%e0%b8%aa.jpg'}} style={{height: 200, width: null, flex: 1}}/>
+            </CardItem>
+            <CardItem>
+              <Left>
+                <Button transparent>
+                  <Icon active name="thumbs-up" />
+                  <Text>12 Likes</Text>
+                </Button>
+              </Left>
+              <Body>
+                <Button transparent>
+                  <Icon active name="chatbubbles" />
+                  <Text>4 Comments</Text>
+                </Button>
+              </Body>
+              <Right>
+                <Text>11h ago</Text>
+              </Right>
+            </CardItem> */}
         </Content>
-        <Footer>
-            <FooterTab style={{backgroundColor: '#FF8200'}}>
-              <Button onPress={() => this.props.navigation.navigate('HOME')}>
-                <Icon name="ios-home" style={{color:'white'}} size={25}/>
-                <Text style={{color:'white',fontSize:10}} >Home</Text>
-              </Button>
-              <Button onPress={() => this.props.navigation.navigate('RESTAURANT')}>
-                <Icon name="md-restaurant" style={{color:'white'}} size={25}/>
-                <Text style={{color:'white',fontSize:10}} >Restaurant</Text>
-              </Button>
-              <Button onPress={() => this.props.navigation.navigate('PRAYPLACE')}>
-                <Icons name="home-map-marker" style={{color:'white'}} size={25}/>
-                <Text style={{color:'white',fontSize:10}} >Pray Place</Text>
-              </Button>
-              <Button onPress={() => this.props.navigation.navigate('PRAYTIME')}>
-                <Icon name="ios-alarm" style={{color:'white'}} size={25}/>
-                <Text style={{color:'white',fontSize:10}} >Pray Time</Text>
-              </Button>
-              <Button>
-                <Icon name="ios-contact" style={{color:'white'}} size={25}/>
-                <Text style={{color:'white',fontSize:10}} >Profile</Text>
-              </Button>
-            </FooterTab>
-          </Footer>
-          </View>
       </Container>
     );
   }
 }
 
 const styles = StyleSheet.create({
-    avatar: {
-        width:120,
-        height:40,
-        borderRadius: 70,
-        borderWidth: 4,
-        borderColor: "white",
-        alignSelf:'center',
-        position: 'absolute',
-        marginTop:150,
-        backgroundColor:'orange'
+      avatar: {
+        width: 50,
+        height: 50,
+        borderRadius: 63,
       },
       fontStyle:{
         alignSelf:'center',
