@@ -9,9 +9,9 @@ import Axios from 'axios';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import Material from 'react-native-vector-icons/MaterialIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import ImageView from 'react-native-image-view';
-
-
+import Moment from 'moment';
 
 export default class restaurantDetail extends Component {
 
@@ -245,15 +245,18 @@ export default class restaurantDetail extends Component {
                 }
                 </View>
               </CardSection>
-              <Text style={{color:'black',fontSize:20,fontWeight:'bold'}}>รีวิวร้านอาหาร</Text>
+              <Text style={{color:'black',fontSize:17,fontWeight:'bold'}}>รีวิวร้านอาหาร</Text>
               <List>
               <ListItem thumbnail>
                 <Left>
                 <Image style={styles.avatar} source={{ uri: this.state.userImage }}/>
                 </Left>
                 <Body>
-                  <Input onChangeText={(text) => this.setState({ reviewTextContent: text })} value={this.state.reviewTextContent} placeholder="เขียนรีวิว..." />
+                  <Input onChangeText={(text) => this.setState({ reviewTextContent: text })} value={this.state.reviewTextContent} placeholder="แสดงความคิดเห็น..." />
                 </Body>
+                <Right>
+                  <FontAwesome name="send-o" style={{color:'gray',marginRight:10}} size={25} onPress={() => { this.addReview() }}/>
+                </Right>
               </ListItem>
               { 
                 this.state.review.map( review => 
@@ -266,7 +269,7 @@ export default class restaurantDetail extends Component {
                     <Text>{review.reviewContent}</Text>
                   </Body>
                   <Right>
-                  <Text style={{fontSize:10,color:'gray'}}>{review.reviewDate}</Text>
+                  <Text style={{fontSize:10,color:'gray'}}>{Moment(review.reviewDate).format('d MMM YYYY')}</Text>
                   <Text style={{fontSize:10,color:'gray'}}>{review.reviewTime}</Text>
                   </Right>
                   </ListItem>
@@ -276,7 +279,7 @@ export default class restaurantDetail extends Component {
                       
             </Card>
             <View style={{justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
-                <Button style={[styles.buttonContainer, styles.reviewButton]}  onPress={() => { this.addReview() }}>
+                <Button style={[styles.buttonContainer, styles.reviewButton]} >
                   <Material name='rate-review' style={{color:'white'}} size={20}/>
                   <Text style={{color:'white',marginLeft:10}}>Review</Text>
                 </Button>
