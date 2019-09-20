@@ -36,13 +36,14 @@ export default class login extends Component {
   async saveUser (user) {
     try {
       await AsyncStorage.setItem('user', '' + user.userId);
+      await AsyncStorage.setItem('image', '' + user.userImage);
     } catch (error) {
       console.log(error.message);
     }
   }
 
   async loginFacebook(){
-    var loginCheck = await LoginManager.logInWithPermissions(['public_profile']).then(
+    var loginCheck = await LoginManager.logInWithPermissions(['public_profile', 'email']).then(
       function(result) {
         if (result.isCancelled) {
           alert('Login was cancelled');
