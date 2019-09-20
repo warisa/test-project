@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet,Button } from 'react-native';
 import MapView from 'react-native-maps';
 import openMap from 'react-native-open-maps';
+import getDirections from 'react-native-google-maps-directions'
 
 class MapApp extends Component {
   constructor(props) {
@@ -10,6 +11,26 @@ class MapApp extends Component {
     };
   }
 
+  getGoogleMap = () => {
+    const data = {
+       destination: {
+        latitude: this.props.jsonMapTest.latitude,
+        longitude: this.props.jsonMapTest.longitude
+       },
+       params: [
+         {
+           key: "travelmode",
+           value: "driving"
+         },
+         {
+            key: "dir_action",
+            value: "navigate"
+          }
+       ]
+     }
+  
+     getDirections(data);
+  }
   
   render() {
     return (
@@ -25,7 +46,10 @@ class MapApp extends Component {
                 showsUserLocation={true}
             >
             <MapView.Marker
-                onPress={() => { openMap({ latitude: this.props.jsonMapTest.latitude, longitude: this.props.jsonMapTest.longitude }); }}
+                onPress={() => { 
+                    this.getGoogleMap();
+                    // openMap({ latitude: this.props.jsonMapTest.latitude, longitude: this.props.jsonMapTest.longitude }); 
+                }}
                 coordinate={this.props.jsonMapTest}
                 title={this.props.placeName}
              />
