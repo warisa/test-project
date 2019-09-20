@@ -5555,6 +5555,11 @@ react-native-gesture-handler@^1.4.1:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
+react-native-google-maps-directions@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-google-maps-directions/-/react-native-google-maps-directions-2.1.0.tgz#b7b1088551f8952a8a6cc5e6d65a19702889a35b"
+  integrity sha512-qAUqI3eb+5yMXq107g05NBzBAhXufe+kdHhMso1EJrMrH7QS8pFFGI177en2xdBDOjMzdw4Yxemzfaiwb+9I3w==
+
 react-native-image-view@^2.1.5:
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/react-native-image-view/-/react-native-image-view-2.1.5.tgz#de271cbb864b5a2867c085b3cd4adbd8c0590e59"
