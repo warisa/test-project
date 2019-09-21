@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Image, StyleSheet,Text,AsyncStorage} from 'react-native';
 import Axios from 'axios';
-import { Container, Content,Right,Body,Left,List,ListItem,Card, CardItem } from 'native-base';
+import { Container, Content,Right,Body,Left,Card, CardItem, Thumbnail } from 'native-base';
 import Material from 'react-native-vector-icons/MaterialIcons';
 import Moment from 'moment';
 
@@ -48,16 +48,17 @@ export default class reviewPage extends Component {
     return (
       <Container>
         <Content>
-        
-            <ListItem thumbnail>
-                <Left>
-                <Image style={styles.avatar} source={{ uri: this.state.user.userImage }}/>
-                </Left>
+          <Card>
+            <CardItem>
+              <Left>
+                <Thumbnail source={{uri: this.state.user.userImage}} />
                 <Body>
                   <Text style={{fontSize:17}}>{this.state.user.userFName} {this.state.user.userLName}</Text>
+                  <Text style={{color:'gray',fontSize:17}}>ประวัติการรีวิว </Text>
                 </Body>
-            </ListItem>
-       
+              </Left>
+            </CardItem>
+          </Card>
         { 
                 this.state.review.map( review => 
                 <Card>
