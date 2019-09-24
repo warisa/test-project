@@ -12,8 +12,9 @@ import prayDetail from './screen/prayDetail';
 import prayTime from './screen/prayTime';
 import profile from './screen/profile';
 import reviewPage from './screen/reviewPage';
-import addPlace from './screen/addPlace';
+import addRestaurant from './screen/addRestaurant';
 import addPlaceHistory from './screen/addPlaceHistory';
+import addPrayPlace from './screen/addPrayPlace';
 
 const StackNavigator = createStackNavigator(
   {
@@ -139,7 +140,7 @@ const StackNavigator = createStackNavigator(
         }
     },
     ADDLOCATION:{
-        screen: addPlace,
+        screen: addRestaurant,
         navigationOptions:{
             title: 'ADD LOCATION',
             headerTintColor: '#fff',
@@ -152,6 +153,16 @@ const StackNavigator = createStackNavigator(
         screen: addPlaceHistory,
         navigationOptions:{
             title: 'ADD PLACE HISTORY',
+            headerTintColor: '#fff',
+            headerStyle: {
+                backgroundColor: '#FF8200'
+            }
+        }
+    },
+    ADDPRAYPLACE:{
+        screen: addPrayPlace,
+        navigationOptions:{
+            title: 'ADD Pray Place',
             headerTintColor: '#fff',
             headerStyle: {
                 backgroundColor: '#FF8200'

@@ -9,8 +9,11 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-export default class addPlace extends Component {
+import DatePicker from 'react-native-datepicker'
+
+export default class addPrayPlace extends Component {
   
     constructor(props) {
         super(props);
@@ -56,7 +59,7 @@ export default class addPlace extends Component {
       }
 
       async getMenu() {
-        Axios.get('http://10.4.56.94/category1/1')
+        Axios.get('http://10.4.56.94/category2/2')
         .then(response => {
           response.data.map( value => {
             var dataValue =   {
@@ -135,44 +138,52 @@ export default class addPlace extends Component {
       }
       
       async submit(){
-        var category = []
-        this.state.menu.map(value => {
-          if(value.value == true){
-            category.push(value.categoryId)
+        if(this.state.placeName != '' && this.state.placeTelno != '' && this.state.placeDescription != '' && this.state.placeAddress != ''  ){
+          var category = []
+          this.state.menu.map(value => {
+            if(value.value == true){
+              category.push(value.categoryId)
+            }
+          })
+          var bodyData = {
+            userId: this.state.user.userId,
+            placeName: this.state.placeName,
+            placeOpeningTime: this.state.placeOpeningTime + ':00',
+            placeClosingTime: this.state.placeClosingTime + ':00',
+            placeTelno: this.state.placeTelno,
+            placeDescription: this.state.placeDescription,
+            placePriceRange: this.state.placePriceRange,
+            placeCarParking: this.setTrueNumber(this.state.placeCarParking),
+            placePrayerRoom: this.setTrueNumber(this.state.placePrayerRoom),
+            placeAirconditioner: this.setTrueNumber(this.state.placeAirconditioner),
+            placeReserve: this.setTrueNumber(this.state.placeReserve),
+            placeCreditcard: this.setTrueNumber(this.state.placeCreditcard),
+            placeAddress: this.state.placeAddress,
+            placeLinkPage: this.state.placeLinkPage,
+            latitude:'13.51214',
+            longtitude:'100.23645',
+            placeTypeId: this.state.placeTypeId,
+            Monday: this.setTrueNumber(this.state.Monday),
+            Tuesday: this.setTrueNumber(this.state.Tuesday),
+            Wednesday: this.setTrueNumber(this.state.Wednesday),
+            Thursday: this.setTrueNumber(this.state.Thursday),
+            Friday: this.setTrueNumber(this.state.Friday),
+            Saturday: this.setTrueNumber(this.state.Saturday),
+            Sunday: this.setTrueNumber(this.state.Sunday),
+            categoryId: category
           }
-        })
-        var bodyData = {
-          userId: this.state.user.userId,
-          placeName: this.state.placeName,
-          placeOpeningTime: '09:00:00',
-          placeClosingTime: '22:00:00',
-          placeTelno: this.state.placeTelno,
-          placeDescription: this.state.placeDescription,
-          placePriceRange: this.state.placePriceRange,
-          placeCarParking: this.setTrueNumber(this.state.placeCarParking),
-          placePrayerRoom: this.setTrueNumber(this.state.placePrayerRoom),
-          placeAirconditioner: this.setTrueNumber(this.state.placeAirconditioner),
-          placeReserve: this.setTrueNumber(this.state.placeReserve),
-          placeCreditcard: this.setTrueNumber(this.state.placeCreditcard),
-          placeAddress: this.state.placeAddress,
-          placeLinkPage: this.state.placeLinkPage,
-          latitude:'13.51214',
-          longtitude:'100.23645',
-          placeTypeId: this.state.placeTypeId,
-          Monday: this.setTrueNumber(this.state.Monday),
-          Tuesday: this.setTrueNumber(this.state.Tuesday),
-          Wednesday: this.setTrueNumber(this.state.Wednesday),
-          Thursday: this.setTrueNumber(this.state.Thursday),
-          Friday: this.setTrueNumber(this.state.Friday),
-          Saturday: this.setTrueNumber(this.state.Saturday),
-          Sunday: this.setTrueNumber(this.state.Sunday),
-          categoryId: category
+          console.log((bodyData))
+          await Axios.post('http://10.4.56.94/addPlace', bodyData)
+          .then(response => {
+            if(response.data){
+              alert('Complete !!!');
+            }else{
+              alert('Error !!!');
+            }
+          });
+        }else {
+          alert('Please enter all information.');
         }
-        console.log((bodyData))
-        await Axios.post('http://10.4.56.94/addPlace', bodyData)
-        .then(response => {
-          console.log(response.data)
-        });
       }
       
   render() {
@@ -209,11 +220,51 @@ export default class addPlace extends Component {
             }
             <Text style={styles.fontStyle}>รายละเอียดของร้าน</Text>
             <Form style={styles.input}>
-              <Textarea onChangeText={(text) => this.setState({ placeDescription: text })} value={this.state.placeDescription} rowSpan={5} bordered placeholder="ที่อยู่ของสถานที่..." />
+              <Textarea onChangeText={(text) => this.setState({ placeDescription: text })} value={this.state.placeDescription} rowSpan={5} bordered placeholder="รายละเอียดของร้าน" />
             </Form>
+            <Text style={styles.fontStyle}>เวลาเปิดให้บริการ</Text>
+            <Item regular style={styles.input} onPress={() => {}}>
+            <CardItem >
+              <Left>
+                <MaterialCommunityIcons active name="timetable" size={20} style={styles.iconStyle}/>
+              </Left>
+              <Body>
+                <DatePicker
+                  style={{width: 200}}
+                  date={this.state.placeOpeningTime}
+                  mode="time"
+                  format="HH:mm"
+                  confirmBtnText="Confirm"
+                  cancelBtnText="Cancel"
+                  minuteInterval={10}
+                  onDateChange={(time) => {this.setState({placeOpeningTime: time});}}
+                />
+              </Body>
+              <Right>
+              </Right>
+             </CardItem>
+             </Item>
+             <Text style={styles.fontStyle}>เวลาปิดให้บริการ</Text>
             <Item regular style={styles.input}>
-              <MaterialCommunityIcons active name='timetable' size={20} style={styles.iconStyle}/>
-              <Input placeholder='เวลาเปิดให้บริการ' />
+            <CardItem>
+              <Left>
+                <MaterialCommunityIcons active name="timetable" size={20} style={styles.iconStyle}/>
+              </Left>
+              <Body>
+                <DatePicker
+                  style={{width: 200}}
+                  date={this.state.placeClosingTime}
+                  mode="time"
+                  format="HH:mm"
+                  confirmBtnText="Confirm"
+                  cancelBtnText="Cancel"
+                  minuteInterval={10}
+                  onDateChange={(time) => {this.setState({placeClosingTime: time});}}
+                />
+                </Body>
+              <Right>
+              </Right>
+             </CardItem>
             </Item>
             <Text style={styles.fontStyle}>วันที่ปิดให้บริการ</Text>
               <ListItem thumbnail>
@@ -276,6 +327,9 @@ export default class addPlace extends Component {
               <FontAwesome5 active name='coins'size={20} style={styles.iconStyle} />
               <Input onChangeText={(text) => this.setState({ placePriceRange: text })} value={this.state.placePriceRange} placeholder='ช่วงราคา' />
             </Item>
+            <Form style={styles.input}>
+              <Textarea onChangeText={(text) => this.setState({ placeAddress: text })} value={this.state.placeAddress} rowSpan={5} bordered placeholder="ที่อยู่ของสถานที่..." />
+            </Form>
             <Item regular style={styles.input}>
               <Entypo active name='old-mobile' size={20} style={styles.iconStyle}/>
               <Input onChangeText={(text) => this.setState({ placeTelno: text })} value={this.state.placeTelno} placeholder='เบอร์โทรศัพท์' />
@@ -393,3 +447,4 @@ const styles = {
     marginLeft: 10,
   }
 }
+
