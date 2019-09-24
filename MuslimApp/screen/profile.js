@@ -79,7 +79,7 @@ export default class profile extends Component {
               <Text>ประวัติการเพิ่มสถานที่: </Text>
             </Body>
             <Right>
-              <Icon name="ios-arrow-forward" style={{color:'gray',marginRight:10}} size={25} onPress={()  => this.props.navigation.navigate('REVIEW')}/>
+              <Icon name="ios-arrow-forward" style={{color:'gray',marginRight:10}} size={25} onPress={()  => this.props.navigation.navigate('ADDHISTORY')}/>
             </Right>
           </ListItem>
           <ListItem thumbnail>

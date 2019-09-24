@@ -13,6 +13,7 @@ import prayTime from './screen/prayTime';
 import profile from './screen/profile';
 import reviewPage from './screen/reviewPage';
 import addPlace from './screen/addPlace';
+import addPlaceHistory from './screen/addPlaceHistory';
 
 const StackNavigator = createStackNavigator(
   {
@@ -146,7 +147,17 @@ const StackNavigator = createStackNavigator(
                 backgroundColor: '#FF8200'
             }
         }
-    }
+    },
+    ADDHISTORY:{
+        screen: addPlaceHistory,
+        navigationOptions:{
+            title: 'ADD PLACE HISTORY',
+            headerTintColor: '#fff',
+            headerStyle: {
+                backgroundColor: '#FF8200'
+            }
+        }
+    },
   }
 );
   
