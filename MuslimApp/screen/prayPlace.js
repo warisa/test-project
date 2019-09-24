@@ -7,8 +7,17 @@ import { Container, Footer, FooterTab, Button, Item, Input } from 'native-base';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { ScrollView } from 'react-native-gesture-handler';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 export default class prayPlace extends Component {
+
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerRight: (
+        <AntDesign name="plus" style={{color:'white',marginRight:10}} size={25} onPress={() => navigation.navigate('ADDPRAYPLACE')}/>
+      )
+    };
+  };
   constructor(){
     super()
       this.state = { //ประกาศตัวแปรใน this.state นอกstate = ค่าคงที่
