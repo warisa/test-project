@@ -121,6 +121,63 @@ export default class addPlace extends Component {
               <MaterialCommunityIcons active name='timetable' size={20} style={styles.iconStyle}/>
               <Input placeholder='เวลาเปิดให้บริการ' />
             </Item>
+            <Text style={styles.fontStyle}>วันที่ปิดให้บริการ</Text>
+              <ListItem thumbnail>
+              <Left>
+                <Radio selected={false} />
+              </Left>
+              <Body>
+                <Text>Monday</Text>
+              </Body>
+            </ListItem>
+            <ListItem thumbnail>
+              <Left>
+                <Radio selected={false} />
+              </Left>
+              <Body>
+                <Text>Tuesday</Text>
+              </Body>
+            </ListItem>
+            <ListItem thumbnail>
+              <Left>
+                <Radio selected={false} />
+              </Left>
+              <Body>
+                <Text>Wednesday</Text>
+              </Body>
+            </ListItem>
+            <ListItem thumbnail>
+              <Left>
+                <Radio selected={false} />
+              </Left>
+              <Body>
+                <Text>Thursday</Text>
+              </Body>
+            </ListItem>
+            <ListItem thumbnail>
+              <Left>
+                <Radio selected={false} />
+              </Left>
+              <Body>
+                <Text>Friday</Text>
+              </Body>
+            </ListItem>
+            <ListItem thumbnail>
+              <Left>
+                <Radio selected={false} />
+              </Left>
+              <Body>
+                <Text>Saturday</Text>
+              </Body>
+            </ListItem>
+            <ListItem thumbnail>
+              <Left>
+                <Radio selected={false} />
+              </Left>
+              <Body>
+                <Text>Sunday</Text>
+              </Body>
+            </ListItem>
             <Item regular style={styles.input}>
               <FontAwesome5 active name='coins'size={20} style={styles.iconStyle} />
               <Input placeholder='ช่วงราคา' />
