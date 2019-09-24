@@ -22,7 +22,7 @@ export default class reviewPage extends Component {
 
   componentWillMount() {
     this.checkUser();
-    Axios.get('http://10.4.56.94/reviewHistory/1'+ this.state.user.userId)
+    Axios.get('http://10.4.56.94/reviewHistory/'+ this.state.user.userId)
     .then(response => {
       this.setState({ review: response.data});
   })
