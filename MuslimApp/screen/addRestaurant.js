@@ -13,7 +13,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import DatePicker from 'react-native-datepicker'
 
-export default class addPrayPlace extends Component {
+export default class addRestaurant extends Component {
   
     constructor(props) {
         super(props);
@@ -59,7 +59,7 @@ export default class addPrayPlace extends Component {
       }
 
       async getMenu() {
-        Axios.get('http://10.4.56.94/category2/2')
+        Axios.get('http://10.4.56.94/category1/1')
         .then(response => {
           response.data.map( value => {
             var dataValue =   {
@@ -138,7 +138,8 @@ export default class addPrayPlace extends Component {
       }
       
       async submit(){
-        if(this.state.placeName != '' && this.state.placeTelno != '' && this.state.placeDescription != '' && this.state.placeAddress != ''  ){
+        if(this.state.placeName != '' && this.state.placeOpeningTime != '' && this.state.placeClosingTime != '' && this.state.placeTelno != '' 
+        && this.state.placeDescription != '' && this.state.placeAddress != ''  ){
           var category = []
           this.state.menu.map(value => {
             if(value.value == true){
@@ -203,9 +204,9 @@ export default class addPrayPlace extends Component {
             {/* <Image style={styles.avatar} source={{ uri: this.state.user.userImage }}/> */}
             <Item regular style={styles.input}>
               <Entypo active name='home' size={20} style={styles.iconStyle}/>
-              <Input onChangeText={(text) => this.setState({ placeName: text })} value={this.state.placeName} placeholder='ชื่อสถานที่ละหมาด' />
+              <Input onChangeText={(text) => this.setState({ placeName: text })} value={this.state.placeName} placeholder='ชื่อร้านอาหาร' />
             </Item>
-            <Text style={styles.fontStyle}>ประเภทของสถานที่ละหมาด</Text>
+            <Text style={styles.fontStyle}>ประเภทของอาหาร</Text>
             { 
             this.state.menu.map( (menu, i) => 
             <ListItem key={menu.categoryId} thumbnail>
@@ -218,7 +219,7 @@ export default class addPrayPlace extends Component {
             </ListItem>
             )
             }
-            <Text style={styles.fontStyle}>รายละเอียดของสถานที่</Text>
+            <Text style={styles.fontStyle}>รายละเอียดของร้าน</Text>
             <Form style={styles.input}>
               <Textarea onChangeText={(text) => this.setState({ placeDescription: text })} value={this.state.placeDescription} rowSpan={5} bordered placeholder="รายละเอียดเพิ่มเติม" />
             </Form>
@@ -266,7 +267,7 @@ export default class addPrayPlace extends Component {
               </Right>
              </CardItem>
             </Item>
-            {/* <Text style={styles.fontStyle}>วันที่ปิดให้บริการ</Text>
+            <Text style={styles.fontStyle}>วันที่ปิดให้บริการ</Text>
               <ListItem thumbnail>
               <Left>
                 <CheckBox checked={this.state.Monday} onPress={() => this.setState({ Monday: !this.state.Monday }) }/>
@@ -322,13 +323,21 @@ export default class addPrayPlace extends Component {
               <Body>
                 <Text>Sunday</Text>
               </Body>
-            </ListItem> */}
+            </ListItem>
+            <Item regular style={styles.input}>
+              <FontAwesome5 active name='coins'size={20} style={styles.iconStyle} />
+              <Input onChangeText={(text) => this.setState({ placePriceRange: text })} value={this.state.placePriceRange} placeholder='ช่วงราคา' />
+            </Item>
             <Form style={styles.input}>
               <Textarea onChangeText={(text) => this.setState({ placeAddress: text })} value={this.state.placeAddress} rowSpan={5} bordered placeholder="ที่อยู่ของสถานที่..." />
             </Form>
             <Item regular style={styles.input}>
               <Entypo active name='old-mobile' size={20} style={styles.iconStyle}/>
               <Input onChangeText={(text) => this.setState({ placeTelno: text })} value={this.state.placeTelno} placeholder='เบอร์โทรศัพท์' />
+            </Item>
+            <Item regular style={styles.input}>
+              <MaterialIcons active name='find-in-page' size={20} style={styles.iconStyle}/>
+              <Input onChangeText={(text) => this.setState({ placeLinkPage: text })} value={this.state.placeLinkPage} placeholder='เพจของร้าน' />
             </Item>
             <Text style={styles.fontStyle}>ที่จอดรถ</Text>
             <ListItem thumbnail>
@@ -439,4 +448,3 @@ const styles = {
     marginLeft: 10,
   }
 }
-
