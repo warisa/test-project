@@ -25,12 +25,15 @@ constructor(){
     this.state = { //ประกาศตัวแปรใน this.state นอกstate = ค่าคงที่
       place: [],
       category:[],
+      menu:[],
       search: null
     }
   }
   componentWillMount() {
     Axios.get('http://10.4.56.94/restaurant')
     .then(response => this.setState({ place: response.data }))
+    Axios.get('http://10.4.56.94/category1/1')
+    .then(response => this.setState({ menu: response.data }))
   }
     searchRestaurant(search){
     if(search==null || search==""){
@@ -51,7 +54,7 @@ constructor(){
        </Item>  
        <Card>
        <CardSection>
-       <ScrollView horizontal={true} style={styles.container1}
+       {/* <ScrollView horizontal={true} style={styles.container1}
                 showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
               <TouchableHighlight onPress={() => this.props.navigation.navigate('CATEGORY',{categoryName :"steak"})}>
                 <Image source={require('../image/steak1.png')} style={{width:90,height:80,marginRight:10}}/>
@@ -71,7 +74,16 @@ constructor(){
               <TouchableHighlight onPress={() => this.props.navigation.navigate('CATEGORY',{categoryName :"dessert"})}>
                 <Image source={require('../image/dessert.png')} style={{width:100,height:90}}/>
               </TouchableHighlight>
-         </ScrollView>
+         </ScrollView> */}
+         <ScrollView horizontal={true} style={styles.container1} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
+         { 
+            this.state.menu.map( menu => 
+                <TouchableHighlight  key={menu.categoryId} onPress={() => this.props.navigation.navigate('CATEGORY',{categoryName : menu.categoryName})}>
+                  <Image source={require('../image/dessert.png')} style={{width:90,height:80,marginRight:10}}/>
+                </TouchableHighlight>
+                )
+              }
+         </ScrollView> 
          </CardSection>
          </Card> 
             <ScrollView>
