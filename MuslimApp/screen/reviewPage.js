@@ -20,12 +20,8 @@ export default class reviewPage extends Component {
     };
   }
 
-  componentWillMount() {
-    this.checkUser();
-    Axios.get('http://10.4.56.94/reviewHistory/'+ this.state.user.userId)
-    .then(response => {
-      this.setState({ review: response.data});
-  })
+  async componentWillMount() {
+    await this.checkUser();
 }
 
   async checkUser() {
@@ -41,6 +37,8 @@ export default class reviewPage extends Component {
   async getUser(user){
     await Axios.get('http://10.4.56.94/profile/' + user)
     .then(response => this.setState({ user: response.data[0] }))
+    await Axios.get('http://10.4.56.94/reviewHistory/'+ user)
+    .then(response => this.setState({ review: response.data }))
     console.log(this.state.user)
   }
 

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { View, Image, StyleSheet,Text,AsyncStorage} from 'react-native';
+import { View, Image, StyleSheet,Text,AsyncStorage,TouchableHighlight} from 'react-native';
 import Axios from 'axios';
-import { Container, Content,Right,Body,Left,Card, CardItem, Thumbnail } from 'native-base';
+import { Container, Content,Right,Body,Left, CardItem, Thumbnail } from 'native-base';
 import Material from 'react-native-vector-icons/MaterialIcons';
 import Moment from 'moment';
 import { ScrollView } from 'react-native-gesture-handler';
+import Card from './Card';
+import CardSection from './CardSection';
 
 export default class addPlaceHistory extends Component {
   constructor(props) {
@@ -23,10 +25,6 @@ export default class addPlaceHistory extends Component {
 
   componentWillMount() {
     this.checkUser();
-    Axios.get('http://10.4.56.94/addPlaceHistory/'+ this.state.user.userId)
-    .then(response => {
-      this.setState({ addPlaceHistory: response.data});
-  })
 }
 
   async checkUser() {
@@ -42,8 +40,11 @@ export default class addPlaceHistory extends Component {
   async getUser(user){
     await Axios.get('http://10.4.56.94/profile/' + user)
     .then(response => this.setState({ user: response.data[0] }))
+    Axios.get('http://10.4.56.94/addPlaceHistory/'+ user)
+    .then(response => this.setState({ addPlaceHistory: response.data}))
     console.log(this.state.user)
   }
+
 
   render() {
     return (
@@ -55,7 +56,7 @@ export default class addPlaceHistory extends Component {
                 <Thumbnail source={{uri: this.state.user.userImage}} />
                 <Body>
                   <Text style={{fontSize:17}}>{this.state.user.userFName} {this.state.user.userLName}</Text>
-                  <Text style={{color:'gray',fontSize:17}}>ประวัติการรีวิว </Text>
+                  <Text style={{color:'gray',fontSize:17}}>ประวัติการเพิ่มสถานที่ </Text>
                 </Body>
               </Left>
             </CardItem>
@@ -73,6 +74,8 @@ export default class addPlaceHistory extends Component {
                                     </View>
                                   <View style={styles.container}>
                                       <Text style={{color:'black'}}>{place.placeName}</Text>
+                                      <Text style={{color:'black'}}>{Moment(place.placeDate).format('DD MMM YYYY')}</Text>
+                                      <Text style={{color:'green'}}>Status: {place.status}</Text>
                                     </View>
                                   </CardSection>
                                 </View>
@@ -96,5 +99,16 @@ const styles = StyleSheet.create({
         alignSelf:'center',
         justifyContent:'center',
         fontSize:20
-      }
+      },
+      container:{
+        justifyContent: 'space-around',
+        flexDirection:'column',
+        marginLeft: 10,
+        flex: 1,
+        width: '100%'
+    },
+    container1: {
+      flex: 1,
+      flexDirection: 'row',
+    }
 })
