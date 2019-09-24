@@ -3,12 +3,13 @@ import {
   AsyncStorage
 } from 'react-native';
 import { Container, Content, Card, CardItem, Thumbnail, Text, ListItem,
-        Item, Input, Picker,Textarea, Form,Left,Body,Right, Radio, List, Button } from 'native-base';
+        Item, Input, Picker,Textarea, Form,Left,Body,Right, Radio, List, Button,CheckBox } from 'native-base';
 import Axios from 'axios';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import ImagePicker from 'react-native-image-picker'
 
 export default class addPlace extends Component {
   
@@ -21,12 +22,38 @@ export default class addPlace extends Component {
             userLName: '',
             userEmail: '',
             userImage: ''
-          }
+          },
+          menu:[],
+          placeName:'',
+          placeOpeningTime:'',
+          placeClosingTime:'',
+          placeTelno:'',
+          placeDescription:'',
+          placePriceRange:'',
+          placeCarParking:'',
+          placePrayerRoom:'',
+          placeAirconditioner:'',
+          placeReserve:'',
+          placeCreditcard:'',
+          placeAddress:'',
+          latitude:'',
+          longtitude:'',
+          placeTypeId:'',
+          Monday:'',
+          Tuesday:'',
+          Wednesday:'',
+          Thursday:'',
+          Friday:'',
+          Saturday:'',
+          Sunday:'',
+          categoryId:''
         };
       }
 
       componentWillMount() {
         this.checkUser()
+        Axios.get('http://10.4.56.94/category1/1')
+        .then(response => this.setState({ menu: response.data }))
       }
 
       async checkUser() {
@@ -65,7 +92,19 @@ export default class addPlace extends Component {
               <Input placeholder='ชื่อร้านอาหาร' />
             </Item>
             <Text style={styles.fontStyle}>ประเภทของอาหาร</Text>
-              <ListItem thumbnail>
+            { 
+            this.state.menu.map( menu => 
+            <ListItem key={menu.categoryId} thumbnail>
+              <Left>
+              <CheckBox checked={true} />
+              </Left>
+              <Body>
+                <Text >{menu.categoryName}</Text>
+              </Body>
+            </ListItem>
+            )
+            }
+              {/* <ListItem thumbnail>
               <Left>
                 <Radio selected={false} />
               </Left>
@@ -112,7 +151,7 @@ export default class addPlace extends Component {
               <Body>
                 <Text>Fast Food</Text>
               </Body>
-            </ListItem>
+            </ListItem> */}
             <Text style={styles.fontStyle}>รายละเอียดของร้าน</Text>
             <Form style={styles.input}>
               <Textarea rowSpan={5} bordered placeholder="ที่อยู่ของสถานที่..." />
