@@ -51,13 +51,22 @@ export default class prayPlace extends Component {
          <Card>
            <CardSection>
              <View style={styles.container1}>
-             { 
+             <TouchableHighlight  onPress={() => this.props.navigation.navigate('RESTAURANTPRAY',{placePrayerRoom : "1"})}>
+                  <Image source={require('../image/restaurant.png')} style={{width:90,height:80,marginRight:10}}/>
+                </TouchableHighlight>
+                <TouchableHighlight onPress={() => this.props.navigation.navigate('CATEGORYPRAY',{categoryName : "Shopping Mall"})}>
+                  <Image source={require('../image/shop.png')} style={{width:90,height:80,marginRight:10}}/>
+                </TouchableHighlight>
+                <TouchableHighlight onPress={() => this.props.navigation.navigate('CATEGORYPRAY',{categoryName : "Mosque"})}>
+                  <Image source={require('../image/masjid.png')} style={{width:90,height:80,marginRight:10}}/>
+                </TouchableHighlight>
+             {/* { 
             this.state.menu.map( menu => 
-                <TouchableHighlight  key={menu.categoryId} onPress={() => this.props.navigation.navigate('CATEGORY',{categoryName : menu.categoryName})}>
+                <TouchableHighlight  key={menu.categoryId} onPress={() => this.props.navigation.navigate('CATEGORYPRAY',{categoryName : menu.categoryName})}>
                   <Image source={{uri:menu.categoryImage}} style={{width:90,height:80,marginRight:10}}/>
                 </TouchableHighlight>
                 )
-              }
+              } */}
                       </View>
          </CardSection>
          </Card>
