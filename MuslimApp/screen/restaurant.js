@@ -79,7 +79,7 @@ constructor(){
          { 
             this.state.menu.map( menu => 
                 <TouchableHighlight  key={menu.categoryId} onPress={() => this.props.navigation.navigate('CATEGORY',{categoryName : menu.categoryName})}>
-                  <Image source={require('../image/dessert.png')} style={{width:90,height:80,marginRight:10}}/>
+                  <Image source={{uri:menu.categoryImage}} style={{width:90,height:80,marginRight:10}}/>
                 </TouchableHighlight>
                 )
               }

@@ -101,7 +101,7 @@ const StackNavigator = createStackNavigator(
     PRAYDETAIL:{
         screen: prayDetail,
         navigationOptions:{
-            title: 'Restaurant Details',
+            title: 'Pray Place Details',
             headerTintColor: '#fff',
             headerStyle: {
                 backgroundColor: '#FF8200'
