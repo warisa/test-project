@@ -267,7 +267,7 @@ export default class addRestaurant extends Component {
               </Right>
              </CardItem>
             </Item>
-            <Text style={styles.fontStyle}>วันที่ปิดให้บริการ</Text>
+            <Text style={styles.fontStyle}>วันที่เปิดให้บริการ</Text>
               <ListItem thumbnail>
               <Left>
                 <CheckBox checked={this.state.Monday} onPress={() => this.setState({ Monday: !this.state.Monday }) }/>
