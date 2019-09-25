@@ -94,7 +94,7 @@ export default class profile extends Component {
             </Right>
           </ListItem>
         </List>
-        <Button style={styles.buttonContainer} onPress={() => this.logout()}><Text>logout</Text></Button>
+        <Button style={styles.buttonContainer} onPress={() => this.logout()}><Text>Logout</Text></Button>
         </Content>
         <Footer>
             <FooterTab style={{backgroundColor: '#FF8200'}}>
@@ -151,22 +151,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding:200,
   },
-  // name:{
-  //   fontSize:28,
-  //   color: "#696969",
-  //   fontWeight: "600"
-  // },
-  // info:{
-  //   fontSize:16,
-  //   color: "#00BFFF",
-  //   marginTop:10
-  // },
-  // description:{
-  //   fontSize:16,
-  //   color: "#696969",
-  //   marginTop:10,
-  //   textAlign: 'center'
-  // },
   buttonContainer: {
     marginTop:10,
     height:45,
@@ -175,8 +159,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom:20,
     width:250,
-    borderRadius:30,
-    backgroundColor: "#00BFFF",
     alignSelf:'center'
   },
 });
