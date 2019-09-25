@@ -41,7 +41,7 @@ export default class addPrayPlace extends Component {
           placeLinkPage:'',
           latitude:'',
           longtitude:'',
-          placeTypeId:'1',
+          placeTypeId:'2',
           Monday: false,
           Tuesday:false,
           Wednesday:false,
