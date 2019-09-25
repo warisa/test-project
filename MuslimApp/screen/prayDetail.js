@@ -4,7 +4,7 @@ import Card from './Card';
 import CardSection from './CardSection';
 import { ScrollView } from 'react-native-gesture-handler';
 import {Button, Icon,Header,Left,Right,Body, Container,Title} from 'native-base';
-// import MapApp from '../component/MapApp';
+import MapApp from '../component/MapApp';
 import Axios from 'axios';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
@@ -45,10 +45,10 @@ export default class prayDetail extends Component {
                 </CardSection>
                 <CardSection>
                   <View>
-                  <Text style={{color:'black',fontSize:20,fontWeight:'bold'}}>รายละเอียดร้าน:</Text>
+                  <Text style={{color:'black',fontSize:20,fontWeight:'bold'}}>รายละเอียดสถานที่:</Text>
                   <Text style={styles.fontStyle}>เปิดให้บริการ: </Text>
                   <Text style={styles.fontStyle}>เบอร์โทรศัพท์: </Text>
-                  <Text style={styles.fontStyle}>ที่อยู่ของร้าน: </Text>
+                  <Text style={styles.fontStyle}>ที่อยู่ของสถานที่: </Text>
                   </View>
                   <View style={{marginTop:35,flex:1,width:'100%'}}>
                       <Text style={styles.fontStyle2}>เปิดให้บริการอยู่ในขณะนี้</Text>
@@ -56,14 +56,14 @@ export default class prayDetail extends Component {
                       <Text style={styles.fontStyle2}>{this.state.place.placeAddress}</Text>
                   </View>
                 </CardSection>
-                  {/* <MapApp 
+                  <MapApp 
                     placeName={this.state.place.placeName}
                     jsonMapTest={{latitude: this.state.latitude, longitude: this.state.longitude}}
-                  /> */}
+                  />
                 <Text style={{color:'black',fontSize:17,fontWeight:'bold',marginTop:5}}>รายละเอียดสถานที่</Text>
                 <Card>
                   <CardSection>
-                  <View style={{margin:10}}>
+                  <View>
                 {
                   this.state.place.placeCarParking == 1 ?
                   (
@@ -82,7 +82,7 @@ export default class prayDetail extends Component {
                 }
 
                 </View>
-                <View style={{margin:10}}>
+                <View>
                  {
                   this.state.place.placeAirconditioner == 1 ?
                   (
@@ -100,7 +100,7 @@ export default class prayDetail extends Component {
                   )
                 }
                 </View>
-                <View style={{margin:10}}>
+                <View >
                 {
                   this.state.place.placePrayerRoom == 1 ?
                   (
