@@ -120,11 +120,6 @@ export default class prayDetail extends Component {
                 </View>
                   </CardSection>
                 </Card>
-                <View style={{justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
-                <Button style={[styles.buttonContainer, styles.reviewButton]}  onPress={() => this.props.navigation.navigate('review')}>
-                    <Text>Review</Text>
-                </Button>
-                </View>
             </Card>
             </ScrollView>
             </Container>

@@ -278,12 +278,6 @@ export default class restaurantDetail extends Component {
               </List>
                       
             </Card>
-            <View style={{justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
-                <Button style={[styles.buttonContainer, styles.reviewButton]} >
-                  <Material name='rate-review' style={{color:'white'}} size={20}/>
-                  <Text style={{color:'white',marginLeft:10}}>Review</Text>
-                </Button>
-            </View>
         </ScrollView>
         </Container>
     );
