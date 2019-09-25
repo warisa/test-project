@@ -15,6 +15,7 @@ import reviewPage from './screen/reviewPage';
 import addRestaurant from './screen/addRestaurant';
 import addPlaceHistory from './screen/addPlaceHistory';
 import addPrayPlace from './screen/addPrayPlace';
+import addImage from './screen/addImage';
 
 const StackNavigator = createStackNavigator(
   {
@@ -161,6 +162,16 @@ const StackNavigator = createStackNavigator(
     },
     ADDPRAYPLACE:{
         screen: addPrayPlace,
+        navigationOptions:{
+            title: 'ADD Pray Place',
+            headerTintColor: '#fff',
+            headerStyle: {
+                backgroundColor: '#FF8200'
+            }
+        }
+    },
+    ADDIMAGE:{
+        screen: addImage,
         navigationOptions:{
             title: 'ADD Pray Place',
             headerTintColor: '#fff',
