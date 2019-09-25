@@ -45,17 +45,22 @@ export default class restaurantDetail extends Component {
       this.setState({ userId: user, userImage: image })
     }
 
-  componentWillMount() {
-    this.checkImage();
-    Axios.get('http://10.4.56.94/restaurant/'+ this.state.placeId)
-    .then(response => {
-      this.setState({ place: response.data[0], image: response.data,
-        latitude: this.state.latitude + response.data[0].latitude, longitude: this.state.longitude + response.data[0].longitude
+    async getrestaurant() {
+      await Axios.get('http://10.4.56.94/restaurant/'+ this.state.placeId)
+      .then(response => {
+        this.setState({ place: response.data[0], image: response.data,
+          latitude: this.state.latitude + response.data[0].latitude, longitude: this.state.longitude + response.data[0].longitude
+        });
       });
-      this.getReview();
-      this.setImage();
-    })
-  }
+    }
+    
+
+  //   async componentWillMount() {
+  //     await this.checkImage();
+  //     await this.getrestaurant();
+  //     await this.getReview();
+  //     await this.setImage();
+  // }
 
   getReview(){
     Axios.get('http://10.4.56.94/review/'+ this.state.placeId)
@@ -65,6 +70,7 @@ export default class restaurantDetail extends Component {
   }
 
   setImage(){
+    console.log(this.state.image)
     this.state.image.map( images => {
       this.setState({ ImageUrl: [ ...this.state.ImageUrl, { source: {  uri: images.imageName } }] })
     });
