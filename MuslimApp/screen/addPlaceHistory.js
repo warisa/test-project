@@ -74,7 +74,7 @@ export default class addPlaceHistory extends Component {
                                     </View>
                                   <View style={styles.container}>
                                       <Text style={{color:'black'}}>{place.placeName}</Text>
-                                      <Text style={{color:'black'}}>{Moment(place.placeDate).format('DD MMM YYYY hh:mm:ss')}</Text>
+                                      <Text style={{color:'gray'}}>{Moment(place.placeDate).format('DD MMM YYYY hh:mm:ss')}</Text>
                                       <Text style={{color:'green'}}>Status: {place.status}</Text>
                                     </View>
                                   </CardSection>
