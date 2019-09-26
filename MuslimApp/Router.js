@@ -16,11 +16,12 @@ import addRestaurant from './screen/addRestaurant';
 import addPlaceHistory from './screen/addPlaceHistory';
 import addPrayPlace from './screen/addPrayPlace';
 import addImage from './screen/addImage';
+import uploadImage from './screen/uploadImage';
 
 const StackNavigator = createStackNavigator(
   {
     LOGIN:{ 
-        screen: login,
+        screen: home,
         navigationOptions:{
             header: null
         }
@@ -171,9 +172,9 @@ const StackNavigator = createStackNavigator(
         }
     },
     ADDIMAGE:{
-        screen: addImage,
+        screen: uploadImage,
         navigationOptions:{
-            title: 'ADD Pray Place',
+            title: 'ADD IMAGE',
             headerTintColor: '#fff',
             headerStyle: {
                 backgroundColor: '#FF8200'
