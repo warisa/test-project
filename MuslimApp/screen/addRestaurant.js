@@ -3,13 +3,13 @@ import {
   AsyncStorage
 } from 'react-native';
 import { Container, Content, Card, CardItem, Thumbnail, Text, ListItem,
-        Item, Input, Picker,Textarea, Form,Left,Body,Right, Radio, List, Button,CheckBox } from 'native-base';
+        Item, Input, Picker,Textarea, Form,Left,Body,Right, Radio, TouchableHighlight, Button,CheckBox } from 'native-base';
 import Axios from 'axios';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 import DatePicker from 'react-native-datepicker'
 
@@ -223,6 +223,10 @@ export default class addRestaurant extends Component {
             <Form style={styles.input}>
               <Textarea onChangeText={(text) => this.setState({ placeDescription: text })} value={this.state.placeDescription} rowSpan={5} bordered placeholder="รายละเอียดเพิ่มเติม" />
             </Form>
+            <Button style={styles.input} onPress={()  => this.props.navigation.navigate('ADDIMAGE')}>
+              <Icon name='plussquareo' style={{color:'white',margin:10}} size={20}/>
+              <Text style={{alignSelf:'center'}}>ADD IMAGE</Text>
+              </Button>
             <Text style={styles.fontStyle}>เวลาเปิดให้บริการ</Text>
             <Item regular style={styles.input} onPress={() => {}}>
             <CardItem >
