@@ -19,11 +19,11 @@ export default class addPlaceHistory extends Component {
         userEmail: '',
         userImage: ''
       },
-      addPlaceHistory:[]
+      addPlaceHistory:[],
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.checkUser();
 }
 
@@ -68,14 +68,23 @@ export default class addPlaceHistory extends Component {
                               <View>
                                   <CardSection>
                                     <View>
-                                      <TouchableHighlight onPress={() => this.props.navigation.navigate('RESTAURANTDETAIL',{placeId:restaurant.placeId})}>                             
+                                       <TouchableHighlight onPress={() => this.props.navigation.navigate('ADDHISTORYDETAIL',{placeId:place.placeId})}>                        
                                         <Image source={{uri: place.imageName}} style={{width:150,height: 100, margin: 7}}></Image>
-                                      </TouchableHighlight>
+                                      </TouchableHighlight> 
                                     </View>
                                   <View style={styles.container}>
                                       <Text style={{color:'black'}}>{place.placeName}</Text>
-                                      <Text style={{color:'gray'}}>{Moment(place.placeDate).format('DD MMM YYYY hh:mm:ss')}</Text>
-                                      <Text style={{color:'green'}}>Status: {place.status}</Text>
+                                      <Text style={{color:'gray'}}>{Moment(place.placeDate).format('DD MMM YYYY HH:mm:ss')}</Text>
+                                      <Text>Status: 
+                                      {place.status=='Complete' ? 
+                                       (
+                                        <Text style={{color:'green'}}>{place.status} </Text>
+                                    )
+                                    :
+                                    (
+                                        <Text style={{color:'red'}}>{place.status} </Text>
+                                    )
+                                    }</Text>
                                     </View>
                                   </CardSection>
                                 </View>
