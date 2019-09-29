@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import {
-  AsyncStorage
-} from 'react-native';
-import { Container, Content, Card, CardItem, Thumbnail, Text, ListItem,
-        Item, Input, Picker,Textarea, Form,Left,Body,Right, Radio, TouchableHighlight, Button,CheckBox } from 'native-base';
+import { AsyncStorage, StyleSheet, View } from 'react-native';
+import { Container, Content, Card, CardItem, Thumbnail, Text, ListItem, Item, Input, Picker,Textarea, Form,Left,Body,Right, Radio, TouchableHighlight, Button,CheckBox } from 'native-base';
 import Axios from 'axios';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -12,6 +9,17 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 import DatePicker from 'react-native-datepicker'
+
+import ImagePicker from 'react-native-image-picker';
+import { ScrollView } from 'react-native-gesture-handler';
+
+import UploadImage from '../component/UploadImage';
+
+const options = {
+  title: 'Select Avatar',
+  takePhotoButtonTitle:'Take photo with your camera',
+  chooseFromLibraryButtonTitle:'Choose photo from Library'
+};
 
 export default class addRestaurant extends Component {
   
@@ -49,7 +57,8 @@ export default class addRestaurant extends Component {
           Friday:false,
           Saturday:false,
           Sunday:false,
-          categoryId:''
+          categoryId:'',
+          photo:[]
         };
       }
 
@@ -137,15 +146,24 @@ export default class addRestaurant extends Component {
         }
       }
       
+    
+      
       async submit(){
+        // let imageFirebase = await UploadImage.sendImageToFirebase(this.state.photo, this.state.user.userId)
+        // console.log(imageFirebase)
         if(this.state.placeName != '' && this.state.placeOpeningTime != '' && this.state.placeClosingTime != '' && this.state.placeTelno != '' 
         && this.state.placeDescription != '' && this.state.placeAddress != ''  ){
+
+          var imageFirebase = await UploadImage.sendImageToFirebase(this.state.photo, this.state.user.userId)
+          console.log(imageFirebase)
+
           var category = []
           this.state.menu.map(value => {
             if(value.value == true){
               category.push(value.categoryId)
             }
           })
+          
           var bodyData = {
             userId: this.state.user.userId,
             placeName: this.state.placeName,
@@ -171,20 +189,44 @@ export default class addRestaurant extends Component {
             Friday: this.setTrueNumber(this.state.Friday),
             Saturday: this.setTrueNumber(this.state.Saturday),
             Sunday: this.setTrueNumber(this.state.Sunday),
-            categoryId: category
+            categoryId: category,
+            imageName: imageFirebase
           }
-          console.log((bodyData))
-          await Axios.post('http://10.4.56.94/addPlace', bodyData)
-          .then(response => {
-            if(response.data){
-              alert('Complete !!!');
-            }else{
-              alert('Error !!!');
-            }
-          });
-        }else {
-          alert('Please enter all information.');
-        }
+          console.log(bodyData)
+          setTimeout(async function(){
+            await Axios.post('http://10.4.56.94/addPlace', bodyData)
+            .then(response => {
+              if(response.data){
+                alert('Complete !!!');
+              }else{
+                alert('Error !!!');
+              }
+            });
+          },5000)
+          }else {
+            alert('Please enter all information.');
+          }
+        
+      }
+
+      chooseImagePicker=()=>{ 
+        ImagePicker.showImagePicker(options, (response) => {
+          console.log('Response = ', response);
+        
+          if (response.didCancel) {
+            console.log('User cancelled image picker');
+          } else if (response.error) {
+            console.log('ImagePicker Error: ', response.error);
+        
+          } else {
+            const source = { uri: response.uri };
+
+            this.setState({
+              photo: [ ...this.state.photo, response]
+            });
+
+          }
+        });
       }
       
   render() {
@@ -223,10 +265,20 @@ export default class addRestaurant extends Component {
             <Form style={styles.input}>
               <Textarea onChangeText={(text) => this.setState({ placeDescription: text })} value={this.state.placeDescription} rowSpan={5} bordered placeholder="รายละเอียดเพิ่มเติม" />
             </Form>
-            <Button style={styles.input} onPress={()  => this.props.navigation.navigate('ADDIMAGE')}>
+            {/* <Button style={styles.input} onPress={()  => this.props.navigation.navigate('ADDIMAGE')}> */}
+            <Button style={styles.input} onPress={ () => { this.chooseImagePicker() } }>
               <Icon name='plussquareo' style={{color:'white',margin:10}} size={20}/>
               <Text style={{alignSelf:'center'}}>ADD IMAGE</Text>
-              </Button>
+            </Button>
+            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
+              {
+                this.state.photo.map((image,i)=>{
+                  return <View key={i} style={{marginTop:10, width:130,height:150}}>
+                    <Thumbnail source={{ uri: 'data:image/jpeg;base64,' + image.data }} style={{width: 120, height: 100, margin: 7}} />
+                  </View>;
+                })
+              }
+            </ScrollView>
             <Text style={styles.fontStyle}>เวลาเปิดให้บริการ</Text>
             <Item regular style={styles.input} onPress={() => {}}>
             <CardItem >
@@ -428,7 +480,7 @@ export default class addRestaurant extends Component {
                 <Text>ไม่มี</Text>
             </Body>
             </ListItem>
-            <Button style={{alignSelf:'center',marginTop:10,backgroundColor:'#FF8200'}} onPress={() => this.submit()}>
+            <Button style={{backgroundColor:'#FF8200'}} onPress={() => this.submit()}>
               <Text>Submit</Text>
             </Button>
         </Content>
