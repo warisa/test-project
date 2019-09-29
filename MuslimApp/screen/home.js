@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import firebase from 'react-native-firebase';
-import { StyleSheet, View, Image, TouchableHighlight, Alert, Text } from 'react-native';
+import { StyleSheet, View, Image, TouchableHighlight, Alert, Text, AsyncStorage } from 'react-native';
 import { Container, Content, Body, Footer, FooterTab, Button } from 'native-base';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
