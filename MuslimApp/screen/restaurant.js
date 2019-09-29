@@ -29,7 +29,7 @@ constructor(){
       search: null
     }
   }
-  componentWillMount() {
+  componentDidMount() {
     Axios.get('http://10.4.56.94/restaurant')
     .then(response => this.setState({ place: response.data }))
     Axios.get('http://10.4.56.94/category1/1')

@@ -38,8 +38,16 @@ export default class categoryPray extends Component {
                                     </View>
                                   <View style={styles.container}>
                                       <Text style={{color:'black'}}>{prayer.placeName}</Text>
-                                      <Text style={{color:'black'}}>Open: {prayer.placeOpeningTime}</Text>
-                                      <Text style={{color:'black'}}>Close: {prayer.placeClosingTime}</Text>
+                                      <Text style={styles.fontStyle2}>
+                                        {prayer.placeOpeningTime == null ?
+                                        (    
+                                            <Text style={{color:'green'}}>เปิดให้บริการอยู่ในขณะนี้</Text>
+                                        )
+                                        :
+                                        (
+                                          <Text style={{color:'black'}}>Open: {prayer.placeOpeningTime}-{prayer.placeClosingTime}</Text>
+                                       )}
+                                     </Text>
                                       <Text style={{color:'black'}}>Telno: {prayer.placeTelno}</Text>
                                     </View>
                                   </CardSection>

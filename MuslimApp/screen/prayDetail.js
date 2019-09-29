@@ -51,7 +51,7 @@ export default class prayDetail extends Component {
                   <Text style={styles.fontStyle}>ที่อยู่ของสถานที่: </Text>
                   </View>
                   <View style={{marginTop:35,flex:1,width:'100%'}}>
-                      <Text style={styles.fontStyle2}>เปิดให้บริการอยู่ในขณะนี้</Text>
+                      <Text style={styles.fontStyle3}>เปิดให้บริการอยู่ในขณะนี้</Text>
                       <Text style={styles.fontStyle2}>{this.state.place.placeTelno}</Text>
                       <Text style={styles.fontStyle2}>{this.state.place.placeAddress}</Text>
                   </View>

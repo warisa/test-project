@@ -26,7 +26,7 @@ export default class prayPlace extends Component {
         menu:[],
       }
     }
-    componentWillMount() {
+    componentDidMount() {
       Axios.get('http://10.4.56.94/prayerplace')
       .then(response => this.setState({ place2: response.data }))
       Axios.get('http://10.4.56.94/category2/2')
@@ -83,7 +83,16 @@ export default class prayPlace extends Component {
                                     </View>
                                     <View style={styles.container}>
                                         <Text style={{color:'black'}}>{prayerplace.placeName}</Text>
-                                        <Text style={{color:'green'}}>เปิดให้บริการอยู่ในขณะนี้</Text>
+                                        <Text style={styles.fontStyle2}>
+                                        {prayerplace.placeOpeningTime == null ?
+                                        (    
+                                            <Text style={{color:'green'}}>เปิดให้บริการอยู่ในขณะนี้</Text>
+                                        )
+                                        :
+                                        (
+                                          <Text style={{color:'black'}}>Open: {prayerplace.placeOpeningTime}-{prayerplace.placeClosingTime}</Text>
+                                       )}
+                                     </Text>
                                         {/* <Text style={{color:'red'}}>Close: {prayerplace.placeClosingTime}</Text> */}
                                         <Text style={{color:'black'}}>Telno : {prayerplace.placeTelno}</Text>
                                       </View>

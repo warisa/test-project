@@ -30,7 +30,8 @@ export default class restaurantDetail extends Component {
         placeId: props.navigation.getParam('placeId'),
         userId: '',
         userImage: '',
-        reviewTextContent: ''
+        reviewTextContent: '',
+        datetime:''
       }
     }
 
@@ -55,17 +56,25 @@ export default class restaurantDetail extends Component {
     }
     
 
-  //   async componentWillMount() {
-  //     await this.checkImage();
-  //     await this.getrestaurant();
-  //     await this.getReview();
-  //     await this.setImage();
-  // }
+    async componentWillMount() {
+      await this.checkImage();
+      await this.getrestaurant();
+      await this.getReview();
+      await this.setImage();
+      await this.getDateTime();
+  }
 
   getReview(){
     Axios.get('http://10.4.56.94/review/'+ this.state.placeId)
       .then(response => {
         this.setState({ review: response.data});
+      });
+  }
+
+  getDateTime(){
+    Axios.get('http://10.4.56.94/datetime/'+ this.state.placeId)
+      .then(response => {
+        this.setState({ datetime: response.data});
       });
   }
 
@@ -149,7 +158,16 @@ export default class restaurantDetail extends Component {
               </View>
               <View style={{marginTop:35,flex:1,width:'100%'}}>
                   {/* <Text style={styles.fontStyle2}>เปิดให้บริการอยู่ในขณะนี้</Text> */}
-                  <Text style={styles.fontStyle2}>{this.state.place.placeOpeningTime}-{this.state.place.placeClosingTime}</Text>
+                  <Text style={styles.fontStyle2}>
+                    {this.state.datetime == 1 ?
+                    (    
+                        <Text style={styles.fontStyle3}>เปิดให้บริการอยู่ในขณะนี้</Text>
+                    )
+                    :
+                    (
+                        <Text style={styles.fontStyle4}>ปิดให้บริการอยู่ในขณะนี้</Text>
+                    )}
+                  </Text>
                   <Text style={styles.fontStyle2}>{this.state.place.placePriceRange}</Text>
                   <Text style={styles.fontStyle2}>{this.state.place.placeTelno}</Text>
                   <Text style={styles.fontStyle2}>{this.state.place.placeAddress}</Text>
