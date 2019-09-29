@@ -15,7 +15,7 @@ export default class prayTime extends Component {
       }
     }
 
-    componentDidMount() {
+    componentWillMount() {
       var that = this;
       var date = new Date().getDate(); //Current Date
       var month = new Date().getMonth() + 1; //Current Month
@@ -26,7 +26,7 @@ export default class prayTime extends Component {
       });
     }
 
-    componentWillMount() {
+    componentDidMount() {
       Axios.get('http://10.4.56.94/praytime')
       .then(response => this.setState({ time: response.data }))
     }

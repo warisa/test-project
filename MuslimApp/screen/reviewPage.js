@@ -20,7 +20,7 @@ export default class reviewPage extends Component {
     };
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     await this.checkUser();
 }
 
