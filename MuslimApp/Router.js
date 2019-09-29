@@ -15,13 +15,12 @@ import reviewPage from './screen/reviewPage';
 import addRestaurant from './screen/addRestaurant';
 import addPlaceHistory from './screen/addPlaceHistory';
 import addPrayPlace from './screen/addPrayPlace';
-import addImage from './screen/addImage';
-import uploadImage from './screen/uploadImage';
+import historyDetail from './screen/historyDetail';
 
 const StackNavigator = createStackNavigator(
   {
     LOGIN:{ 
-        screen: home,
+        screen: login,
         navigationOptions:{
             header: null
         }
@@ -171,16 +170,16 @@ const StackNavigator = createStackNavigator(
             }
         }
     },
-    ADDIMAGE:{
-        screen: uploadImage,
+    ADDHISTORYDETAIL:{
+        screen: historyDetail,
         navigationOptions:{
-            title: 'ADD IMAGE',
+            title: 'Detail',
             headerTintColor: '#fff',
             headerStyle: {
                 backgroundColor: '#FF8200'
             }
         }
-    },
+    }
   }
 );
   
