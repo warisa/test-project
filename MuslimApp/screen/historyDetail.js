@@ -240,21 +240,7 @@ export default class historyDetail extends Component {
                   )
                 }
                 </View>
-              </CardSection>
-              <Text style={{color:'black',fontSize:17,fontWeight:'bold'}}>รีวิวร้านอาหาร</Text>
-              <List>
-              <ListItem thumbnail>
-                <Left>
-                <Image style={styles.avatar} source={{ uri: this.state.userImage }}/>
-                </Left>
-                <Body>
-                  <Input onChangeText={(text) => this.setState({ reviewTextContent: text })} value={this.state.reviewTextContent} placeholder="แสดงความคิดเห็น..." />
-                </Body>
-                <Right>
-                  <FontAwesome name="send-o" style={{color:'gray',marginRight:10}} size={25} onPress={() => { this.addReview() }}/>
-                </Right>
-              </ListItem>
-              </List>                    
+              </CardSection>                 
             </Card>
         </ScrollView>
         </Container>
