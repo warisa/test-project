@@ -14,6 +14,7 @@ import ImagePicker from 'react-native-image-picker';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import UploadImage from '../component/UploadImage';
+import CardSection from './CardSection';
 
 const options = {
   title: 'Select Avatar',
@@ -62,7 +63,7 @@ export default class addRestaurant extends Component {
         };
       }
 
-      componentWillMount() {
+      componentDidMount() {
         this.checkUser()
         this.getMenu()
       }
@@ -244,11 +245,12 @@ export default class addRestaurant extends Component {
               </CardItem>
             </Card>
             {/* <Image style={styles.avatar} source={{ uri: this.state.user.userImage }}/> */}
+                <Text style={styles.fontStyle}>ชื่อร้านอาหาร   <FontAwesome5 active name='asterisk' size={10} style={styles.asteriskStyle}/> </Text>
             <Item regular style={styles.input}>
               <Entypo active name='home' size={20} style={styles.iconStyle}/>
               <Input onChangeText={(text) => this.setState({ placeName: text })} value={this.state.placeName} placeholder='ชื่อร้านอาหาร' />
             </Item>
-            <Text style={styles.fontStyle}>ประเภทของอาหาร</Text>
+                <Text style={styles.fontStyle}>ประเภทของอาหาร   <FontAwesome5 active name='asterisk' size={10} style={styles.asteriskStyle}/> </Text>
             { 
             this.state.menu.map( (menu, i) => 
             <ListItem key={menu.categoryId} thumbnail>
@@ -261,11 +263,12 @@ export default class addRestaurant extends Component {
             </ListItem>
             )
             }
-            <Text style={styles.fontStyle}>รายละเอียดของร้าน</Text>
+            <Text style={styles.fontStyle}>รายละเอียดของร้าน   <FontAwesome5 active name='asterisk' size={10} style={styles.asteriskStyle}/></Text>
             <Form style={styles.input}>
               <Textarea onChangeText={(text) => this.setState({ placeDescription: text })} value={this.state.placeDescription} rowSpan={5} bordered placeholder="รายละเอียดเพิ่มเติม" />
             </Form>
-            {/* <Button style={styles.input} onPress={()  => this.props.navigation.navigate('ADDIMAGE')}> */}
+            <Text style={styles.fontStyle}>เพิ่มรูปภาพ   <FontAwesome5 active name='asterisk' size={10} style={styles.asteriskStyle}/></Text>
+
             <Button style={styles.input} onPress={ () => { this.chooseImagePicker() } }>
               <Icon name='plussquareo' style={{color:'white',margin:10}} size={20}/>
               <Text style={{alignSelf:'center'}}>ADD IMAGE</Text>
@@ -279,7 +282,7 @@ export default class addRestaurant extends Component {
                 })
               }
             </ScrollView>
-            <Text style={styles.fontStyle}>เวลาเปิดให้บริการ</Text>
+            <Text style={styles.fontStyle}>เวลาเปิดให้บริการ    <FontAwesome5 active name='asterisk' size={10} style={styles.asteriskStyle}/></Text>
             <Item regular style={styles.input} onPress={() => {}}>
             <CardItem >
               <Left>
@@ -301,7 +304,7 @@ export default class addRestaurant extends Component {
               </Right>
              </CardItem>
              </Item>
-             <Text style={styles.fontStyle}>เวลาปิดให้บริการ</Text>
+             <Text style={styles.fontStyle}>เวลาปิดให้บริการ    <FontAwesome5 active name='asterisk' size={10} style={styles.asteriskStyle}/></Text>
             <Item regular style={styles.input}>
             <CardItem>
               <Left>
@@ -323,7 +326,7 @@ export default class addRestaurant extends Component {
               </Right>
              </CardItem>
             </Item>
-            <Text style={styles.fontStyle}>วันที่เปิดให้บริการ</Text>
+            <Text style={styles.fontStyle}>วันที่เปิดให้บริการ    <FontAwesome5 active name='asterisk' size={10} style={styles.asteriskStyle}/></Text>
               <ListItem thumbnail>
               <Left>
                 <CheckBox checked={this.state.Monday} onPress={() => this.setState({ Monday: !this.state.Monday }) }/>
@@ -380,22 +383,26 @@ export default class addRestaurant extends Component {
                 <Text>Sunday</Text>
               </Body>
             </ListItem>
+            <Text style={styles.fontStyle}>ช่วงราคา   <FontAwesome5 active name='asterisk' size={10} style={styles.asteriskStyle}/></Text>
             <Item regular style={styles.input}>
               <FontAwesome5 active name='coins'size={20} style={styles.iconStyle} />
               <Input onChangeText={(text) => this.setState({ placePriceRange: text })} value={this.state.placePriceRange} placeholder='ช่วงราคา' />
             </Item>
+            <Text style={styles.fontStyle}>ที่อยู่ของสถานที่   <FontAwesome5 active name='asterisk' size={10} style={styles.asteriskStyle}/></Text>
             <Form style={styles.input}>
               <Textarea onChangeText={(text) => this.setState({ placeAddress: text })} value={this.state.placeAddress} rowSpan={5} bordered placeholder="ที่อยู่ของสถานที่..." />
             </Form>
+            <Text style={styles.fontStyle}>เบอร์โทรศัพท์   <FontAwesome5 active name='asterisk' size={10} style={styles.asteriskStyle}/></Text>
             <Item regular style={styles.input}>
               <Entypo active name='old-mobile' size={20} style={styles.iconStyle}/>
               <Input onChangeText={(text) => this.setState({ placeTelno: text })} value={this.state.placeTelno} placeholder='เบอร์โทรศัพท์' />
             </Item>
+            <Text style={styles.fontStyle}>เพจของร้าน</Text>
             <Item regular style={styles.input}>
               <MaterialIcons active name='find-in-page' size={20} style={styles.iconStyle}/>
               <Input onChangeText={(text) => this.setState({ placeLinkPage: text })} value={this.state.placeLinkPage} placeholder='เพจของร้าน' />
             </Item>
-            <Text style={styles.fontStyle}>ที่จอดรถ</Text>
+            <Text style={styles.fontStyle}>ที่จอดรถ    <FontAwesome5 active name='asterisk' size={10} style={styles.asteriskStyle}/></Text>
             <ListItem thumbnail>
               <Left>
                 <Radio selected={this.state.placeCarParking == true} onPress={() => this.setState({ placeCarParking: true }) }/>
@@ -412,7 +419,7 @@ export default class addRestaurant extends Component {
                 <Text>ไม่มี</Text>
             </Body>
             </ListItem>
-            <Text style={styles.fontStyle}>เครื่องปรับอากาศ</Text>
+            <Text style={styles.fontStyle}>เครื่องปรับอากาศ    <FontAwesome5 active name='asterisk' size={10} style={styles.asteriskStyle}/></Text>
             <ListItem thumbnail>
               <Left>
                 <Radio selected={this.state.placeAirconditioner == true} onPress={() => this.setState({ placeAirconditioner: true }) } />
@@ -429,7 +436,7 @@ export default class addRestaurant extends Component {
                 <Text>ไม่มี</Text>
             </Body>
             </ListItem>
-            <Text style={styles.fontStyle}>จองล่วงหน้า</Text>
+            <Text style={styles.fontStyle}>จองล่วงหน้า    <FontAwesome5 active name='asterisk' size={10} style={styles.asteriskStyle}/></Text>
             <ListItem thumbnail>
               <Left>
                 <Radio selected={this.state.placeReserve == true} onPress={() => this.setState({ placeReserve: true }) } />
@@ -446,7 +453,7 @@ export default class addRestaurant extends Component {
                 <Text>ไม่มี</Text>
             </Body>
             </ListItem>
-            <Text style={styles.fontStyle}>ห้องละหมาด</Text>
+            <Text style={styles.fontStyle}>ห้องละหมาด    <FontAwesome5 active name='asterisk' size={10} style={styles.asteriskStyle}/></Text>
             <ListItem thumbnail>
               <Left>
                 <Radio selected={this.state.placePrayerRoom == true} onPress={() => this.setState({ placePrayerRoom: true }) } />
@@ -463,7 +470,7 @@ export default class addRestaurant extends Component {
                 <Text>ไม่มี</Text>
             </Body>
             </ListItem>
-            <Text style={styles.fontStyle}>รับบัตรเครดิต</Text>
+            <Text style={styles.fontStyle}>รับบัตรเครดิต    <FontAwesome5 active name='asterisk' size={10} style={styles.asteriskStyle}/></Text>
             <ListItem thumbnail>
               <Left>
                 <Radio selected={this.state.placeCreditcard == true} onPress={() => this.setState({ placeCreditcard: true }) } />
@@ -498,9 +505,12 @@ const styles = {
   fontStyle:{
     fontSize: 17,
     marginLeft: 10,
-
   },
   iconStyle:{
     marginLeft: 10,
+  },
+  asteriskStyle:{
+    marginLeft: 20,
+    color:'red'
   }
 }
