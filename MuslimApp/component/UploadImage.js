@@ -30,7 +30,7 @@ export default {
             const imageRef = firebase.storage().ref('posts/'+ id ).child('' + date + month + year + ":" + hours + minutes + seconds + '-' + photo[i].fileName)
 
             let mime = 'image/png'
-            fs.readFile(photo[i].uri, 'base64')
+            await fs.readFile(photo[i].uri, 'base64')
             .then((data) => {
                 return Blob.build(data, { type: `${mime};BASE64` })
             })

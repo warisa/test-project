@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
-import { AsyncStorage, StyleSheet, View } from 'react-native';
-import { Container, Content, Card, CardItem, Thumbnail, Text, ListItem, Item, Input, Picker,Textarea, Form,Left,Body,Right, Radio, TouchableHighlight, Button,CheckBox } from 'native-base';
+import { AsyncStorage, View } from 'react-native';
+import { Container, Content, Card, CardItem, Thumbnail, Text, ListItem, Item, Input,Textarea, Form,Left,Body,Right, Radio, Button,CheckBox } from 'native-base';
 import Axios from 'axios';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Icon from 'react-native-vector-icons/AntDesign';
-
 import DatePicker from 'react-native-datepicker'
-
 import ImagePicker from 'react-native-image-picker';
 import { ScrollView } from 'react-native-gesture-handler';
-
 import UploadImage from '../component/UploadImage';
-import CardSection from './CardSection';
 
 const options = {
   title: 'Select Avatar',
@@ -153,9 +149,9 @@ export default class addRestaurant extends Component {
         // let imageFirebase = await UploadImage.sendImageToFirebase(this.state.photo, this.state.user.userId)
         // console.log(imageFirebase)
         if(this.state.placeName != '' && this.state.placeOpeningTime != '' && this.state.placeClosingTime != '' && this.state.placeTelno != '' 
-        && this.state.placeDescription != '' && this.state.placeAddress != ''  ){
+        && this.state.placeDescription != '' && this.state.placeAddress != '' && this.state.photo != ''  ){
 
-          var imageFirebase = await UploadImage.sendImageToFirebase(this.state.photo, this.state.user.userId)
+          var imageFirebase = await UploadImage.sendImageToFirebase(this.state.photo, this.state.user.userId).then((value)=>{ return value })
           console.log(imageFirebase)
 
           var category = []
@@ -197,6 +193,7 @@ export default class addRestaurant extends Component {
           setTimeout(async function(){
             await Axios.post('http://10.4.56.94/addPlace', bodyData)
             .then(response => {
+              console.log(response)
               if(response.data){
                 alert('Complete !!!');
               }else{
