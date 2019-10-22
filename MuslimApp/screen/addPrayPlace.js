@@ -9,6 +9,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign';
 import ImagePicker from 'react-native-image-picker';
+import DatePicker from 'react-native-datepicker'
 import UploadImage from '../component/UploadImage';
 
 const options = {
@@ -165,6 +166,13 @@ export default class addPrayPlace extends Component {
             longitude:'100.23645',
             placeTypeId: this.state.placeTypeId,
             categoryId: category,
+            Monday: this.setTrueNumber(this.state.Monday),
+            Tuesday: this.setTrueNumber(this.state.Tuesday),
+            Wednesday: this.setTrueNumber(this.state.Wednesday),
+            Thursday: this.setTrueNumber(this.state.Thursday),
+            Friday: this.setTrueNumber(this.state.Friday),
+            Saturday: this.setTrueNumber(this.state.Saturday),
+            Sunday: this.setTrueNumber(this.state.Sunday),
             imageName: imageFirebase
           }
           console.log(bodyData)
@@ -254,7 +262,7 @@ export default class addPrayPlace extends Component {
                 })
               }
             </ScrollView>
-            {/* <Text style={styles.fontStyle}>เวลาเปิดให้บริการ <FontAwesome5 active name='asterisk' size={10} style={styles.asteriskStyle}/></Text>
+            <Text style={styles.fontStyle}>เวลาเปิดให้บริการ <FontAwesome5 active name='asterisk' size={10} style={styles.asteriskStyle}/></Text>
             <Item regular style={styles.input} onPress={() => {}}>
             <CardItem >
               <Left>
@@ -292,12 +300,69 @@ export default class addPrayPlace extends Component {
                   cancelBtnText="Cancel"
                   minuteInterval={10}
                   onDateChange={(time) => {this.setState({placeClosingTime: time});}}
-                /> */}
-                {/* </Body>
+                />
+                </Body>
               <Right>
-              </Right> */}
-             {/* </CardItem>
-            </Item> */}
+              </Right>
+             </CardItem>
+            </Item>
+            <Text style={styles.fontStyle}>วันที่เปิดให้บริการ    <FontAwesome5 active name='asterisk' size={10} style={styles.asteriskStyle}/></Text>
+            <ListItem thumbnail>
+              <Left>
+                <CheckBox checked={this.state.Monday} onPress={() => this.setState({ Monday: !this.state.Monday }) }/>
+              </Left>
+              <Body>
+                <Text>Monday</Text>
+              </Body>
+            </ListItem>
+            <ListItem thumbnail>
+              <Left>
+                <CheckBox checked={this.state.Tuesday} onPress={() => this.setState({ Tuesday: !this.state.Tuesday }) }/>
+              </Left>
+              <Body>
+                <Text>Tuesday</Text>
+              </Body>
+            </ListItem>
+            <ListItem thumbnail>
+              <Left>
+                <CheckBox checked={this.state.Wednesday} onPress={() => this.setState({ Wednesday: !this.state.Wednesday }) }/>
+              </Left>
+              <Body>
+                <Text>Wednesday</Text>
+              </Body>
+            </ListItem>
+            <ListItem thumbnail>
+              <Left>
+                <CheckBox checked={this.state.Thursday} onPress={() => this.setState({ Thursday: !this.state.Thursday }) }/>
+              </Left>
+              <Body>
+                <Text>Thursday</Text>
+              </Body>
+            </ListItem>
+            <ListItem thumbnail>
+              <Left>
+                <CheckBox checked={this.state.Friday} onPress={() => this.setState({ Friday: !this.state.Friday }) }/>
+              </Left>
+              <Body>
+                <Text>Friday</Text>
+              </Body>
+            </ListItem>
+            <ListItem thumbnail>
+              <Left>
+                <CheckBox checked={this.state.Saturday} onPress={() => this.setState({ Saturday: !this.state.Saturday }) }/>
+              </Left>
+              <Body>
+                <Text>Saturday</Text>
+              </Body>
+            </ListItem>
+            <ListItem thumbnail>
+              <Left>
+                <CheckBox checked={this.state.Sunday} onPress={() => this.setState({ Sunday: !this.state.Sunday }) }/>
+              </Left>
+              <Body>
+                <Text>Sunday</Text>
+              </Body>
+            </ListItem>
             <Text style={styles.fontStyle}>ที่อยู่ของสถานที่   <FontAwesome5 active name='asterisk' size={10} style={styles.asteriskStyle}/></Text>
             <Form style={styles.input}>
               <Textarea onChangeText={(text) => this.setState({ placeAddress: text })} value={this.state.placeAddress} rowSpan={5} bordered placeholder="ที่อยู่ของสถานที่..." />
