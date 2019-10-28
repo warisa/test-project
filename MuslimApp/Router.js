@@ -16,7 +16,13 @@ import addRestaurant from './screen/addRestaurant';
 import addPlaceHistory from './screen/addPlaceHistory';
 import addPrayPlace from './screen/addPrayPlace';
 import historyDetail from './screen/historyDetail';
+import addMap from './screen/addMap';
+import fullImage from './screen/fullImage'
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import React from 'react';
+import { TouchableOpacity } from 'react-native';
 
+console.disableYellowBox = true;
 const StackNavigator = createStackNavigator(
   {
     LOGIN:{ 
@@ -179,7 +185,22 @@ const StackNavigator = createStackNavigator(
                 backgroundColor: '#FF8200'
             }
         }
-    }
+    },
+    FULLIMAGE:{
+        screen: fullImage,
+        navigationOptions: ({navigation}) => ({
+            headerTintColor: '#fff',
+            headerLeft:null,
+            headerRight:(
+                <TouchableOpacity  onPress={() => navigation.goBack()}>
+                    <AntDesign name="close" size={24} color='white' />
+                </TouchableOpacity>
+            ),
+            headerStyle: {
+                backgroundColor: '#000000'
+            }
+        })
+    },
   }
 );
   
