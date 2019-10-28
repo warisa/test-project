@@ -17,7 +17,7 @@ export default class home extends Component {
     }
     
     componentDidMount() {
-      this.setNotification()
+      // this.setNotification()
       this.setState({ test : 'nut'})
       Axios.get('http://10.4.56.94/restaurant')
       .then(response => this.setState({ albums: response.data }))
@@ -25,92 +25,92 @@ export default class home extends Component {
       .then(response => this.setState({ pray: response.data }))
     }
   
-    componentDidmount() {
-      this.notificationListener;
-      this.notificationOpenedListener;
-    }
+    // componentDidmount() {
+    //   this.notificationListener;
+    //   this.notificationOpenedListener;
+    // }
   
-    setNotification(){
-      this.checkPermission();
-      this.createNotificationListeners();
-    }
+    // setNotification(){
+    //   this.checkPermission();
+    //   this.createNotificationListeners();
+    // }
   
-    //1
-    async checkPermission() {
-      const enabled = await firebase.messaging().hasPermission();
-      if (enabled) {
-        this.getToken();
-      } else {
-        this.requestPermission();
-      }
-    }
+    // //1
+    // async checkPermission() {
+    //   const enabled = await firebase.messaging().hasPermission();
+    //   if (enabled) {
+    //     this.getToken();
+    //   } else {
+    //     this.requestPermission();
+    //   }
+    // }
   
-    //2
-    async requestPermission() {
-      try {
-        await firebase.messaging().requestPermission();
-        this.getToken();
-      } catch (error) {
-        console.log('permission rejected');
-      }
-    }
+    // //2
+    // async requestPermission() {
+    //   try {
+    //     await firebase.messaging().requestPermission();
+    //     this.getToken();
+    //   } catch (error) {
+    //     console.log('permission rejected');
+    //   }
+    // }
   
-    //3
-    async getToken() {
-      let fcmToken = await AsyncStorage.getItem('fcmToken');
-      if (!fcmToken) {
-        fcmToken = await firebase.messaging().getToken();
-        if (fcmToken) {
-          console.log('fcmToken:', fcmToken);
-          await AsyncStorage.setItem('fcmToken', fcmToken);
-        }
-      }
-      console.log('fcmToken:', fcmToken);
-    }
+    // //3
+    // async getToken() {
+    //   let fcmToken = await AsyncStorage.getItem('fcmToken');
+    //   if (!fcmToken) {
+    //     fcmToken = await firebase.messaging().getToken();
+    //     if (fcmToken) {
+    //       console.log('fcmToken:', fcmToken);
+    //       await AsyncStorage.setItem('fcmToken', fcmToken);
+    //     }
+    //   }
+    //   console.log('fcmToken:', fcmToken);
+    // }
   
-    async createNotificationListeners() {
-      this.notificationListener = firebase.notifications().onNotification((notification) => {
-        const { title, body } = notification;
-        console.log('onNotification:');
+    // async createNotificationListeners() {
+    //   this.notificationListener = firebase.notifications().onNotification((notification) => {
+    //     const { title, body } = notification;
+    //     console.log('onNotification:');
         
-          const localNotification = new firebase.notifications.Notification({
-            sound: 'sampleaudio',
-            show_in_foreground: true,
-          })
-          .setSound('sampleaudio.mp3')
-          .setNotificationId(notification.notificationId)
-          .setTitle(notification.title)
-          .setBody(notification.body)
-          .android.setChannelId('fcm_FirebaseNotifiction_default_channel')
-          .android.setColor('#000000')
-          .android.setPriority(firebase.notifications.Android.Priority.High);
+    //       const localNotification = new firebase.notifications.Notification({
+    //         sound: 'sampleaudio',
+    //         show_in_foreground: true,
+    //       })
+    //       .setSound('sampleaudio.mp3')
+    //       .setNotificationId(notification.notificationId)
+    //       .setTitle(notification.title)
+    //       .setBody(notification.body)
+    //       .android.setChannelId('fcm_FirebaseNotifiction_default_channel')
+    //       .android.setColor('#000000')
+    //       .android.setPriority(firebase.notifications.Android.Priority.High);
   
-          firebase.notifications()
-            .displayNotification(localNotification)
-            .catch(err => console.error(err));
-      });
+    //       firebase.notifications()
+    //         .displayNotification(localNotification)
+    //         .catch(err => console.error(err));
+    //   });
   
-      const channel = new firebase.notifications.Android.Channel('fcm_FirebaseNotifiction_default_channel', 'Demo app name', firebase.notifications.Android.Importance.High)
-        .setDescription('Demo app description')
-        .setSound('sampleaudio.mp3');
-      firebase.notifications().android.createChannel(channel);
+    //   const channel = new firebase.notifications.Android.Channel('fcm_FirebaseNotifiction_default_channel', 'Demo app name', firebase.notifications.Android.Importance.High)
+    //     .setDescription('Demo app description')
+    //     .setSound('sampleaudio.mp3');
+    //   firebase.notifications().android.createChannel(channel);
   
-      this.notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen) => {
-        const { title, body } = notificationOpen.notification;
-        console.log('onNotificationOpened:');
-        Alert.alert(title, body)
-      });
+    //   this.notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen) => {
+    //     const { title, body } = notificationOpen.notification;
+    //     console.log('onNotificationOpened:');
+    //     Alert.alert(title, body)
+    //   });
   
-      const notificationOpen = await firebase.notifications().getInitialNotification();
-      if (notificationOpen) {
-        const { title, body } = notificationOpen.notification;
-        console.log('getInitialNotification:');
-        Alert.alert(title, body)
-      }
-      this.messageListener = firebase.messaging().onMessage((message) => {
-        console.log("JSON.stringify:", JSON.stringify(message));
-      });
-    }
+    //   const notificationOpen = await firebase.notifications().getInitialNotification();
+    //   if (notificationOpen) {
+    //     const { title, body } = notificationOpen.notification;
+    //     console.log('getInitialNotification:');
+    //     Alert.alert(title, body)
+    //   }
+    //   this.messageListener = firebase.messaging().onMessage((message) => {
+    //     console.log("JSON.stringify:", JSON.stringify(message));
+    //   });
+    // }
   render() {
     return (
       <Container>
@@ -191,169 +191,3 @@ const styles = StyleSheet.create({
     color: 'orange'
   }
 });
-
-// const StackNavigator = createStackNavigator(
-//   {
-//     Navigate:{ screen: App,
-//      navigationOptions:{
-//      }},
-//       detail:{ screen: restaurantDetail,
-//         navigationOptions:{
-//           title:"Detail"
-//         }
-//       },
-//       detail1:{ screen: prayDetail,
-//         navigationOptions:{
-//           title:"Detail"
-//         }
-//       },
-
-//   },
-//   {
-//     initialRouteName : 'Navigate',
-//     defaultNavigationOptions: {
-      // headerStyle: {
-      //   backgroundColor: '#CC6600',
-      // },
-      // headerTintColor: '#fff',
-      // headerTitleStyle: { 
-      //   flex:1,
-      // },
-      // headerRight: (<View />)
-//     },
-//   }
-// );
-// const StackNavigator2 = createStackNavigator(
-//   {
-//     restaurant:{ screen: restaurant,
-//      navigationOptions:{
-//        title:"Restaurant"
-//      }},
-//      restaurantDetail:{ screen: restaurantDetail,
-//       navigationOptions:{
-//         title:"Detail"
-//       }},
-//       category:{screen: category,
-//         navigationOptions:{
-//           title:"Restautant"
-//       }},
-//       review:{ screen: review,
-//         navigationOptions:{
-//           title:"Review"
-//       }}
-//   },
-//   {
-//     initialRouteName : 'restaurant',
-//     defaultNavigationOptions: {
-//       headerStyle: {
-//         backgroundColor: '#CC6600',
-//       },
-//       headerTintColor: '#fff',
-//       headerTitleStyle: { 
-//         flex:1,
-//       },
-//       headerRight: (<View />)
-//     },
-//   }
-// );
-// const StackNavigator3 = createStackNavigator(
-//   {
-//     prayerPlace:{ screen: prayPlace,
-//      navigationOptions:{
-//        title:"Pray Place"
-//      }},
-//      prayerDetail:{ screen: prayDetail,
-//       navigationOptions:{
-//         title:"Detail"
-//       }},
-//       restaurantPrayer:{screen: restaurantPrayer,
-//         navigationOptions:{
-//           title:"Prayer Place"
-//       }},
-//       categoryPrayer:{screen: categoryPrayer,
-//         navigationOptions:{
-//           title:"Prayer Place"
-//       }},
-//       review:{ screen: review,
-//         navigationOptions:{
-//           headerVisible: false,
-//       }}
-//   },
-//   {
-//     initialRouteName : 'prayerPlace',
-//     defaultNavigationOptions: {
-//       headerStyle: {
-//         backgroundColor: '#CC6600',
-//       },
-//       headerTintColor: '#fff',
-//       headerTitleStyle: { 
-//         flex:1,
-//       },
-//       headerRight: (<View />)
-//     },
-//   }
-// );
-// const TabNavigator = createBottomTabNavigator(
-//   {
-//     Home: {screen: StackNavigator,
-//       navigationOptions:{
-//       tabBarIcon:()=>(
-//         <Icon name="ios-home" style={{color:'white'}} size={25}/>
-//       )
-//     }
-//   },
-//     Restaurant:{screen: StackNavigator2,
-//       navigationOptions:{
-//         tabBarIcon:()=>(
-//           <Icon name="md-restaurant" style={{color:'white'}} size={25}/>
-//         )
-//       }
-//     },
-//     PrayPlace:{screen: StackNavigator3,
-//       navigationOptions:{
-//         tabBarIcon:()=>(
-//           <Icons name="home-map-marker" style={{color:'white'}} size={25}/>
-//         )
-//       }
-//     },
-//     PrayTime:{screen: prayTime,
-//       navigationOptions:{
-//         tabBarIcon:()=>(
-//           <Icon name="ios-alarm" style={{color:'white'}} size={25}/>
-//         )
-//       }
-//     },
-//     Account:{screen: login,
-//       navigationOptions:{
-//         tabBarIcon:()=>(
-//           <Icon name="ios-contact" style={{color:'white'}} size={25}/>
-//         )
-//       }
-//     },
-//   },
-//   {
-//     tabBarOptions: {
-//       style: {
-//            height:60,
-//           backgroundColor: '#CC6600',
-//           padding: 8,
-//       },
-//        indicatorStyle: {
-//           borderBottomColor: '#ffffff',
-//           borderBottomWidth: 3,
-//       },
-//       tabStyle: {
-//           borderColor: '#CC6600',
-//           borderRightWidth: 1,
-//       },
-//       labelStyle: {
-//         fontSize: 10,
-//          marginTop: 0,
-//          color :'#ffffff'
-//       },
-//     }
-//   },
-//     {
-//       initialRouteName : 'Home'
-//     }
-// );
