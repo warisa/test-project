@@ -4,15 +4,23 @@ import { Container, Title, Button, Icon, Left, Right, Body, Content } from "nati
 import Entypo from 'react-native-vector-icons/Entypo';
 import { AccessToken, LoginManager  } from 'react-native-fbsdk';
 import Axios from 'axios';
+import firebase from 'react-native-firebase';
 
 export default class login extends Component {
 
   constructor(props){
-    super(props)
-  }
+    super()
+     this.state = { //ประกาศตัวแปรใน this.state นอกstate = ค่าคงที่
+        token:""
+      }
+    }
+  
 
   componentWillMount() {
     this.checkGoHome();
+    this.setNotification()
+      this.notificationListener;
+      this.notificationOpenedListener;
   }
 
   async checkGoHome(){
@@ -59,8 +67,9 @@ export default class login extends Component {
     );
     if(loginCheck == true){
       const accessData = await AccessToken.getCurrentAccessToken();
-      Axios.post('http://10.4.56.94/login', { facebookToken: accessData.accessToken })
+      Axios.post('http://10.4.56.94/login', { facebookToken: accessData.accessToken, firebaseToken: this.state.token })
       .then(response => {
+        console.log(response)
         const  user = response.data;
         console.log(user)
         console.log('-----------------------------')
@@ -73,6 +82,89 @@ export default class login extends Component {
     }
 
   }
+
+    setNotification(){
+      this.checkPermission();
+      this.createNotificationListeners();
+    }
+  
+    //1
+    async checkPermission() {
+      const enabled = await firebase.messaging().hasPermission();
+      if (enabled) {
+        this.getToken();
+      } else {
+        this.requestPermission();
+      }
+    }
+  
+    //2
+    async requestPermission() {
+      try {
+        await firebase.messaging().requestPermission();
+        this.getToken();
+      } catch (error) {
+        console.log('permission rejected');
+      }
+    }
+  
+    //3
+    async getToken() {
+      let fcmToken = await AsyncStorage.getItem('fcmToken');
+      if (!fcmToken) {
+        fcmToken = await firebase.messaging().getToken();
+        if (fcmToken) {
+          console.log('fcmToken:', fcmToken);
+          await AsyncStorage.setItem('fcmToken', fcmToken);
+        }
+      }
+      this.state.token = fcmToken;
+      console.log('fcmToken:', this.state.token);
+    }
+  
+    async createNotificationListeners() {
+      this.notificationListener = firebase.notifications().onNotification((notification) => {
+        const { title, body } = notification;
+        console.log('onNotification:');
+        
+          const localNotification = new firebase.notifications.Notification({
+            sound: 'sampleaudio',
+            show_in_foreground: true,
+          })
+          .setSound('sampleaudio.mp3')
+          .setNotificationId(notification.notificationId)
+          .setTitle(notification.title)
+          .setBody(notification.body)
+          .android.setChannelId('fcm_FirebaseNotifiction_default_channel')
+          .android.setColor('#000000')
+          .android.setPriority(firebase.notifications.Android.Priority.High);
+  
+          firebase.notifications()
+            .displayNotification(localNotification)
+            .catch(err => console.error(err));
+      });
+  
+      const channel = new firebase.notifications.Android.Channel('fcm_FirebaseNotifiction_default_channel', 'Demo app name', firebase.notifications.Android.Importance.High)
+        .setDescription('Demo app description')
+        .setSound('sampleaudio.mp3');
+      firebase.notifications().android.createChannel(channel);
+  
+      this.notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen) => {
+        const { title, body } = notificationOpen.notification;
+        console.log('onNotificationOpened:');
+        Alert.alert(title, body)
+      });
+  
+      const notificationOpen = await firebase.notifications().getInitialNotification();
+      if (notificationOpen) {
+        const { title, body } = notificationOpen.notification;
+        console.log('getInitialNotification:');
+        Alert.alert(title, body)
+      }
+      this.messageListener = firebase.messaging().onMessage((message) => {
+        console.log("JSON.stringify:", JSON.stringify(message));
+      });
+    }
 
   render() {
     return (
