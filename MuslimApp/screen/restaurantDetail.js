@@ -3,14 +3,12 @@ import { View, Text, Image, TouchableOpacity, AsyncStorage } from 'react-native'
 import Card from './Card';
 import CardSection from './CardSection';
 import { ScrollView } from 'react-native-gesture-handler';
-import {Button, Icon,Header,Left,Right,Body, Container,Input , List, ListItem} from 'native-base';
+import {Left,Right,Body, Container,Input , List, ListItem} from 'native-base';
 import MapApp from '../component/MapApp';
 import Axios from 'axios';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
-import Material from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import ImageView from 'react-native-image-view';
 import Moment from 'moment';
 
 export default class restaurantDetail extends Component {
@@ -96,7 +94,6 @@ export default class restaurantDetail extends Component {
   }
 
   render() {
-    const{isImageViewVisible} = this.state;
     // const { navigation } = this.props;
     // const placeId = navigation.getParam('placeId');
     // const Name = navigation.getParam('placeName');
@@ -122,27 +119,13 @@ export default class restaurantDetail extends Component {
                             this.state.image.map( (images, i) => (
                             <TouchableOpacity key={images.imageId} 
                             // style={{alignItems: 'center', marginTop:10, width:130,height:150}}
-                                onPress={() => {
-                                  this.setState({
-                                    ImageIndex: i,
-                                    isImageViewVisible: true
-                                  });
-                                }} 
-                            >
+                                onPress={() => this.props.navigation.navigate('FULLIMAGE',{imageName:images.imageName})}>
                                   <Image 
                                     source={{uri: images.imageName}} 
                                     style={{width: 120, height: 100,margin:7}} />
                             </TouchableOpacity>
                             ))
                           }      
-                          <ImageView
-                            //images={[{ source: {  uri: this.state.ImageUrl } }]}
-                            images={this.state.ImageUrl}
-                            imageIndex={this.state.ImageIndex}
-                            imageWidth={400}
-                            imageHeight={800}
-                            isVisible={this.state.isImageViewVisible}
-                          />
                   </ScrollView>
                 </View>  
             </CardSection>
