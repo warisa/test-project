@@ -201,6 +201,12 @@ const StackNavigator = createStackNavigator(
             }
         })
     },
+    ADDMAP:{
+        screen: addMap,
+        navigationOptions:{
+            header:null
+        }
+    },
   }
 );
   
