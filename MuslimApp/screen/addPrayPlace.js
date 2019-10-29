@@ -44,8 +44,8 @@ export default class addPrayPlace extends Component {
           placeCreditcard:false,
           placeAddress:'',
           placeLinkPage:'',
-          latitude:'',
-          longtitude:'',
+          latitude:null,
+          longitude:null,
           placeTypeId:'2',
           Monday: false,
           Tuesday:false,
@@ -144,7 +144,9 @@ export default class addPrayPlace extends Component {
       }
       
       async submit(){
-        if(this.state.placeName != '' && this.state.placeTelno != '' && this.state.placeDescription != '' && this.state.placeAddress != '' && this.state.photo != ''  ){
+        if(this.state.placeName != '' && this.state.placeTelno != '' && this.state.placeDescription != '' && this.state.placeAddress != '' && this.state.photo != '' && 
+        this.state.latitude != null && this.state.longitude != null && this.state.latitude != '' && this.state.longitude != '' 
+        ){
           var imageFirebase = await UploadImage.sendImageToFirebase(this.state.photo, this.state.user.userId).then((value)=>{ return value })
           console.log(imageFirebase)
           var category = []
@@ -162,8 +164,8 @@ export default class addPrayPlace extends Component {
             placePrayerRoom: this.setTrueNumber(this.state.placePrayerRoom),
             placeAirconditioner: this.setTrueNumber(this.state.placeAirconditioner),
             placeAddress: this.state.placeAddress,
-            latitude:'13.51214',
-            longitude:'100.23645',
+            latitude:this.state.latitude,
+            longitude:this.state.longitude,
             placeTypeId: this.state.placeTypeId,
             categoryId: category,
             Monday: this.setTrueNumber(this.state.Monday),
@@ -180,7 +182,7 @@ export default class addPrayPlace extends Component {
           await Axios.post('http://10.4.56.94/addmosque', bodyData)
           .then(response => {
             if(response.data){
-              alert('Complete !!!');
+              alert('Complete !!!')
             }else{
               alert('Error !!!');
             }
@@ -209,6 +211,20 @@ export default class addPrayPlace extends Component {
           }
         });
       }
+
+      setLocation = data => {
+        this.setState({
+          latitude: 0.0 + data.latitude,
+          longitude: 0.0 + data.longitude
+        });
+      };
+
+      onSetLocation = () => {
+        this.props.navigation.navigate("ADDMAP", { setLocation: this.setLocation  });
+      };
+      onButtonPress = () => {
+        this.props.navigation.goBack();
+     }
       
   render() {
     return (
@@ -262,7 +278,7 @@ export default class addPrayPlace extends Component {
                 })
               }
             </ScrollView>
-            <Text style={styles.fontStyle}>เวลาเปิดให้บริการ <FontAwesome5 active name='asterisk' size={10} style={styles.asteriskStyle}/></Text>
+            <Text style={styles.fontStyle}>เวลาเปิดให้บริการ </Text>
             <Item regular style={styles.input} onPress={() => {}}>
             <CardItem >
               <Left>
@@ -284,7 +300,7 @@ export default class addPrayPlace extends Component {
               </Right>
              </CardItem>
              </Item>
-             <Text style={styles.fontStyle}>เวลาปิดให้บริการ <FontAwesome5 active name='asterisk' size={10} style={styles.asteriskStyle}/></Text>
+             <Text style={styles.fontStyle}>เวลาปิดให้บริการ</Text>
             <Item regular style={styles.input}>
             <CardItem>
               <Left>
@@ -367,6 +383,20 @@ export default class addPrayPlace extends Component {
             <Form style={styles.input}>
               <Textarea onChangeText={(text) => this.setState({ placeAddress: text })} value={this.state.placeAddress} rowSpan={5} bordered placeholder="ที่อยู่ของสถานที่..." />
             </Form>
+            <Text style={styles.fontStyle}>ปักหมุดสถานที่   <FontAwesome5 active name='asterisk' size={10} style={styles.asteriskStyle}/></Text>
+            {
+              this.state.latitude != null && this.state.longitude !=null ?
+              (
+                <View>
+                  <Text style={{alignSelf:'center'}}>latitude: {this.state.latitude}</Text>
+                  <Text style={{alignSelf:'center'}}>longitude: {this.state.longitude}</Text>
+                </View>
+              ) : (null)
+            }
+            <Button style={styles.input} onPress={this.onSetLocation}>
+              <Icon name='plussquareo' style={{color:'white',margin:10}} size={20}/>
+              <Text style={{alignSelf:'center'}}>ADD LOCATION</Text>
+            </Button>
             <Text style={styles.fontStyle}>เบอร์โทรศัพท์   <FontAwesome5 active name='asterisk' size={10} style={styles.asteriskStyle}/></Text>
             <Item regular style={styles.input}>
               <Entypo active name='old-mobile' size={20} style={styles.iconStyle}/>

@@ -44,8 +44,8 @@ export default class addRestaurant extends Component {
           placeCreditcard:false,
           placeAddress:'',
           placeLinkPage:'',
-          latitude:'',
-          longtitude:'',
+          latitude:null,
+          longitude:null,
           placeTypeId:'1',
           Monday: false,
           Tuesday:false,
@@ -149,7 +149,8 @@ export default class addRestaurant extends Component {
         // let imageFirebase = await UploadImage.sendImageToFirebase(this.state.photo, this.state.user.userId)
         // console.log(imageFirebase)
         if(this.state.placeName != '' && this.state.placeOpeningTime != '' && this.state.placeClosingTime != '' && this.state.placeTelno != '' 
-        && this.state.placeDescription != '' && this.state.placeAddress != '' && this.state.photo != ''  ){
+        && this.state.placeDescription != '' && this.state.placeAddress != '' && this.state.photo != '' && this.state.latitude != null && this.state.longitude != null
+        && this.state.latitude != '' && this.state.longitude != '' ){
 
           var imageFirebase = await UploadImage.sendImageToFirebase(this.state.photo, this.state.user.userId).then((value)=>{ return value })
           console.log(imageFirebase)
@@ -176,8 +177,8 @@ export default class addRestaurant extends Component {
             placeCreditcard: this.setTrueNumber(this.state.placeCreditcard),
             placeAddress: this.state.placeAddress,
             placeLinkPage: this.state.placeLinkPage,
-            latitude:'13.51214',
-            longtitude:'100.23645',
+            latitude: this.state.latitude,
+            longitude: this.state.longitude,
             placeTypeId: this.state.placeTypeId,
             Monday: this.setTrueNumber(this.state.Monday),
             Tuesday: this.setTrueNumber(this.state.Tuesday),
@@ -226,6 +227,17 @@ export default class addRestaurant extends Component {
           }
         });
       }
+
+      setLocation = data => {
+        this.setState({
+          latitude: 0.0 + data.latitude,
+          longitude: 0.0 + data.longitude
+        });
+      };
+
+      onSetLocation = () => {
+        this.props.navigation.navigate("ADDMAP", { setLocation: this.setLocation  });
+      };
       
   render() {
     return (
@@ -389,6 +401,20 @@ export default class addRestaurant extends Component {
             <Form style={styles.input}>
               <Textarea onChangeText={(text) => this.setState({ placeAddress: text })} value={this.state.placeAddress} rowSpan={5} bordered placeholder="ที่อยู่ของสถานที่..." />
             </Form>
+            <Text style={styles.fontStyle}>ปักหมุดสถานที่   <FontAwesome5 active name='asterisk' size={10} style={styles.asteriskStyle}/></Text>
+            {
+              this.state.latitude != null && this.state.longitude !=null ?
+              (
+                <View>
+                  <Text style={{alignSelf:'center'}}>latitude: {this.state.latitude}</Text>
+                  <Text style={{alignSelf:'center'}}>longitude: {this.state.longitude}</Text>
+                </View>
+              ) : (null)
+            }
+            <Button style={styles.input} onPress={this.onSetLocation}>
+              <Icon name='plussquareo' style={{color:'white',margin:10}} size={20}/>
+              <Text style={{alignSelf:'center'}}>ADD LOCATION</Text>
+            </Button>
             <Text style={styles.fontStyle}>เบอร์โทรศัพท์   <FontAwesome5 active name='asterisk' size={10} style={styles.asteriskStyle}/></Text>
             <Item regular style={styles.input}>
               <Entypo active name='old-mobile' size={20} style={styles.iconStyle}/>
