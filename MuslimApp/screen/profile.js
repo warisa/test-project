@@ -10,6 +10,7 @@ import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { List, ListItem,Button,Footer, FooterTab, Container, Content, Left, Right, Body } from 'native-base';
 import Axios from 'axios';
 import Material from 'react-native-vector-icons/MaterialIcons';
+import { AccessToken, LoginManager  } from 'react-native-fbsdk';
 
 
 export default class profile extends Component {
@@ -28,8 +29,16 @@ export default class profile extends Component {
 
   componentDidMount() {
     this.checkUser()
+    this.clearUser();
   }
   
+  
+  async clearUser(){
+    if (AccessToken.getCurrentAccessToken() != null) {
+      await LoginManager.logOut();
+  }
+}
+
   async checkUser() {
     let user = '';
     try {
@@ -47,8 +56,12 @@ export default class profile extends Component {
   }
 
   async logout() {
+    // if(LoginManager.getInstance()!=null){
+    // await LoginManager.getInstance().logOut()
+    // }
     try {
-      // await AsyncStorage.removeItem('user');
+      this.clearUser();
+      await AsyncStorage.removeItem('user');
       await AsyncStorage.clear();
       this.props.navigation.navigate('LOGIN')
     } catch (error) {
