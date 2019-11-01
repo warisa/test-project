@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Image, SafeAreaView } from 'react-native';
-import MapView, { Marker } from 'react-native-maps'
+import MapView from 'react-native-maps'
 import { Text,Button } from 'native-base';
 
 export default class addMap extends Component {

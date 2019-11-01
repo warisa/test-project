@@ -18,7 +18,7 @@ export default class login extends Component {
 
   componentWillMount() {
     this.checkGoHome();
-    this.setNotification()
+    this.setNotification();
       this.notificationListener;
       this.notificationOpenedListener;
   }
@@ -53,6 +53,7 @@ export default class login extends Component {
   async loginFacebook(){
     var loginCheck = await LoginManager.logInWithPermissions(['public_profile', 'email']).then(
       function(result) {
+        console.log(result)
         if (result.isCancelled) {
           alert('Login was cancelled');
           return false;
@@ -65,14 +66,16 @@ export default class login extends Component {
         return false;
       }
     );
+    console.log(loginCheck)
     if(loginCheck == true){
       const accessData = await AccessToken.getCurrentAccessToken();
+      console.log(accessData.accessToken)
+      console.log(this.state.token)
       Axios.post('http://10.4.56.94/login', { facebookToken: accessData.accessToken, firebaseToken: this.state.token })
       .then(response => {
         console.log(response)
         const  user = response.data;
         console.log(user)
-        console.log('-----------------------------')
         this.saveUser(user)
         this.checkGoHome();
       })
