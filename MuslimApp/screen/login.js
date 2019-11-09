@@ -71,7 +71,7 @@ export default class login extends Component {
       const accessData = await AccessToken.getCurrentAccessToken();
       console.log(accessData.accessToken)
       console.log(this.state.token)
-      Axios.post('http://10.4.56.94/login', { facebookToken: accessData.accessToken, firebaseToken: this.state.token })
+      Axios.post('https://www.service.muslimdailylife.online/login', { facebookToken: accessData.accessToken, firebaseToken: this.state.token })
       .then(response => {
         console.log(response)
         const  user = response.data;

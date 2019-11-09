@@ -30,17 +30,17 @@ constructor(){
     }
   }
   componentDidMount() {
-    Axios.get('http://10.4.56.94/restaurant')
+    Axios.get('https://www.service.muslimdailylife.online/restaurant')
     .then(response => this.setState({ place: response.data }))
-    Axios.get('http://10.4.56.94/category1/1')
+    Axios.get('https://www.service.muslimdailylife.online/category1/1')
     .then(response => this.setState({ menu: response.data }))
   }
     searchRestaurant(search){
     if(search==null || search==""){
-      Axios.get('http://10.4.56.94/restaurant')
+      Axios.get('https://www.service.muslimdailylife.online/restaurant')
       .then(response => this.setState({ place: response.data }))
     }else{
-      Axios.get('http://10.4.56.94/searchbyword1/'+search)
+      Axios.get('https://www.service.muslimdailylife.online/searchbyword1/'+search)
       .then(response => this.setState({ place: response.data }))
     }
   }

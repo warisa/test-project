@@ -47,7 +47,7 @@ export default class historyDetail extends Component {
     }
 
     async getrestaurant() {
-      await Axios.get('http://10.4.56.94/AddPlaceHistoryDetail/'+ this.state.placeId)
+      await Axios.get('https://www.service.muslimdailylife.online/AddPlaceHistoryDetail/'+ this.state.placeId)
       .then(response => {
         this.setState({ place: response.data[0], image: response.data,
           latitude: this.state.latitude + response.data[0].latitude, longitude: this.state.longitude + response.data[0].longitude
@@ -65,14 +65,14 @@ export default class historyDetail extends Component {
   }
 
   getReview(){
-    Axios.get('http://10.4.56.94/review/'+ this.state.placeId)
+    Axios.get('https://www.service.muslimdailylife.online/review/'+ this.state.placeId)
       .then(response => {
         this.setState({ review: response.data});
       });
   }
 
   getDateTime(){
-    Axios.get('http://10.4.56.94/datetime/'+ this.state.placeId)
+    Axios.get('https://www.service.muslimdailylife.online/datetime/'+ this.state.placeId)
       .then(response => {
         this.setState({ datetime: response.data});
       });
@@ -86,7 +86,7 @@ export default class historyDetail extends Component {
   }
   
   addReview(){
-    Axios.post('http://10.4.56.94/addreview', { userId: this.state.userId, placeId: this.state.placeId, reviewContent: this.state.reviewTextContent })
+    Axios.post('https://www.service.muslimdailylife.online/addreview', { userId: this.state.userId, placeId: this.state.placeId, reviewContent: this.state.reviewTextContent })
     .then(response => {
       if(response.data){
         this.getReview();

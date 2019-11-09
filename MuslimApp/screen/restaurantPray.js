@@ -16,11 +16,11 @@ export default class restaurantPray extends Component {
     }
   }
   componentWillMount() {
-    Axios.get('http://10.4.56.94/prayerplace')
+    Axios.get('https://www.service.muslimdailylife.online/prayerplace')
     .then(response => this.setState({ place2: response.data }))
   }
   componentWillMount() {
-    Axios.get('http://10.4.56.94/searchbycategory3/'+this.state.placePrayerRoom)
+    Axios.get('https://www.service.muslimdailylife.online/searchbycategory3/'+this.state.placePrayerRoom)
     .then(response => this.setState({ category:response.data }))
   }
   render() {

@@ -35,9 +35,9 @@ export default class reviewPage extends Component {
   }
 
   async getUser(user){
-    await Axios.get('http://10.4.56.94/profile/' + user)
+    await Axios.get('https://www.service.muslimdailylife.online/profile/' + user)
     .then(response => this.setState({ user: response.data[0] }))
-    await Axios.get('http://10.4.56.94/reviewHistory/'+ user)
+    await Axios.get('https://www.service.muslimdailylife.online/reviewHistory/'+ user)
     .then(response => this.setState({ review: response.data }))
     console.log(this.state.user)
   }

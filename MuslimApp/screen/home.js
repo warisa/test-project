@@ -19,9 +19,9 @@ export default class home extends Component {
     componentDidMount() {
       // this.setNotification()
       this.setState({ test : 'nut'})
-      Axios.get('http://10.4.56.94/restaurant')
+      Axios.get('https://www.service.muslimdailylife.online/restaurant')
       .then(response => this.setState({ albums: response.data }))
-      Axios.get('http://10.4.56.94/prayerplace')
+      Axios.get('https://www.service.muslimdailylife.online/prayerplace')
       .then(response => this.setState({ pray: response.data }))
     }
   

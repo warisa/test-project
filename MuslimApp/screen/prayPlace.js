@@ -27,17 +27,17 @@ export default class prayPlace extends Component {
       }
     }
     componentDidMount() {
-      Axios.get('http://10.4.56.94/prayerplace')
+      Axios.get('https://www.service.muslimdailylife.online/prayerplace')
       .then(response => this.setState({ place2: response.data }))
-      Axios.get('http://10.4.56.94/category2/2')
+      Axios.get('https://www.service.muslimdailylife.online/category2/2')
       .then(response => this.setState({ menu: response.data }))
     }
     searchPrayerPlace(search){
       if(search==null || search==""){
-        Axios.get('http://10.4.56.94/prayerplace')
+        Axios.get('https://www.service.muslimdailylife.online/prayerplace')
         .then(response => this.setState({ place2: response.data }))
       }else{
-        Axios.get('http://10.4.56.94/searchbyword2/'+search)
+        Axios.get('https://www.service.muslimdailylife.online/searchbyword2/'+search)
         .then(response => this.setState({ place2: response.data }))
       }
     }

@@ -50,7 +50,7 @@ export default class profile extends Component {
   }
 
   async getUser(user){
-    await Axios.get('http://10.4.56.94/profile/' + user)
+    await Axios.get('https://www.service.muslimdailylife.online/profile/' + user)
     .then(response => this.setState({ user: response.data[0] }))
     console.log(this.state.user)
   }

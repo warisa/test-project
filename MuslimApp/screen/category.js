@@ -16,11 +16,11 @@ export default class category extends Component {
     }
   }
   componentWillMount() {
-    Axios.get('http://10.4.56.94/restaurant')
+    Axios.get('https://www.service.muslimdailylife.online/restaurant')
     .then(response => this.setState({ place: response.data }))
   }
   componentWillMount() {
-    Axios.get('http://10.4.56.94/searchbycategory1/'+this.state.categoryName)
+    Axios.get('https://www.service.muslimdailylife.online/searchbycategory1/'+this.state.categoryName)
     .then(response => this.setState({ category:response.data }))
   }
   render() {

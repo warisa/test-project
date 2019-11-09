@@ -38,9 +38,9 @@ export default class addPlaceHistory extends Component {
   }
 
   async getUser(user){
-    await Axios.get('http://10.4.56.94/profile/' + user)
+    await Axios.get('https://www.service.muslimdailylife.online/profile/' + user)
     .then(response => this.setState({ user: response.data[0] }))
-    Axios.get('http://10.4.56.94/addPlaceHistory/'+ user)
+    Axios.get('https://www.service.muslimdailylife.online/addPlaceHistory/'+ user)
     .then(response => this.setState({ addPlaceHistory: response.data}))
     console.log(this.state.user)
   }

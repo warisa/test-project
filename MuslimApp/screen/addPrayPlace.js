@@ -65,7 +65,7 @@ export default class addPrayPlace extends Component {
       }
 
       async getMenu() {
-        Axios.get('http://10.4.56.94/category2/2')
+        Axios.get('https://www.service.muslimdailylife.online/category2/2')
         .then(response => {
           response.data.map( value => {
             var dataValue =   {
@@ -121,13 +121,13 @@ export default class addPrayPlace extends Component {
       }
 
       async getUser(user){
-        await Axios.get('http://10.4.56.94/profile/' + user)
+        await Axios.get('https://www.service.muslimdailylife.online/profile/' + user)
         .then(response => this.setState({ user: response.data[0] }))
         console.log(this.state.user)
       }
 
       addPlace(){
-        Axios.post('http://10.4.56.94/addPlace', { userId: this.state.userId, placeId: this.state.placeId, reviewContent: this.state.reviewTextContent })
+        Axios.post('https://www.service.muslimdailylife.online/addPlace', { userId: this.state.userId, placeId: this.state.placeId, reviewContent: this.state.reviewTextContent })
         .then(response => {
           if(response.data){
             this.setState({ reviewTextContent: '' })
@@ -179,7 +179,7 @@ export default class addPrayPlace extends Component {
           }
           console.log(bodyData)
           setTimeout(async function(){
-          await Axios.post('http://10.4.56.94/addmosque', bodyData)
+          await Axios.post('https://www.service.muslimdailylife.online/addmosque', bodyData)
           .then(response => {
             if(response.data){
               alert('Complete !!!')

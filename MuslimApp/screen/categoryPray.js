@@ -16,11 +16,11 @@ export default class categoryPray extends Component {
     }
   }
   componentWillMount() {
-    Axios.get('http://10.4.56.94/prayerplace')
+    Axios.get('https://www.service.muslimdailylife.online/prayerplace')
     .then(response => this.setState({ place2: response.data }))
   }
   componentWillMount() {
-    Axios.get('http://10.4.56.94/searchbycategory2/'+this.state.categoryName)
+    Axios.get('https://www.service.muslimdailylife.online/searchbycategory2/'+this.state.categoryName)
     .then(response => this.setState({ category:response.data }))
   }
   render() {
