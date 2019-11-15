@@ -16,7 +16,7 @@ export default class login extends Component {
     }
   
 
-  componentWillMount() {
+  componentDidMount() {
     this.checkGoHome();
     this.setNotification();
       this.notificationListener;
@@ -166,6 +166,7 @@ export default class login extends Component {
       }
       this.messageListener = firebase.messaging().onMessage((message) => {
         console.log("JSON.stringify:", JSON.stringify(message));
+        
       });
     }
 

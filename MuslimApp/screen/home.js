@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import firebase from 'react-native-firebase';
-import { StyleSheet, View, Image, TouchableHighlight, Alert, Text, AsyncStorage } from 'react-native';
-import { Container, Content, Body, Footer, FooterTab, Button } from 'native-base';
+import { StyleSheet, View, Image, TouchableHighlight, Text } from 'react-native';
+import { Container, Content, Footer, FooterTab, Button } from 'native-base';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Axios from 'axios';
@@ -25,92 +24,6 @@ export default class home extends Component {
       .then(response => this.setState({ pray: response.data }))
     }
   
-    // componentDidmount() {
-    //   this.notificationListener;
-    //   this.notificationOpenedListener;
-    // }
-  
-    // setNotification(){
-    //   this.checkPermission();
-    //   this.createNotificationListeners();
-    // }
-  
-    // //1
-    // async checkPermission() {
-    //   const enabled = await firebase.messaging().hasPermission();
-    //   if (enabled) {
-    //     this.getToken();
-    //   } else {
-    //     this.requestPermission();
-    //   }
-    // }
-  
-    // //2
-    // async requestPermission() {
-    //   try {
-    //     await firebase.messaging().requestPermission();
-    //     this.getToken();
-    //   } catch (error) {
-    //     console.log('permission rejected');
-    //   }
-    // }
-  
-    // //3
-    // async getToken() {
-    //   let fcmToken = await AsyncStorage.getItem('fcmToken');
-    //   if (!fcmToken) {
-    //     fcmToken = await firebase.messaging().getToken();
-    //     if (fcmToken) {
-    //       console.log('fcmToken:', fcmToken);
-    //       await AsyncStorage.setItem('fcmToken', fcmToken);
-    //     }
-    //   }
-    //   console.log('fcmToken:', fcmToken);
-    // }
-  
-    // async createNotificationListeners() {
-    //   this.notificationListener = firebase.notifications().onNotification((notification) => {
-    //     const { title, body } = notification;
-    //     console.log('onNotification:');
-        
-    //       const localNotification = new firebase.notifications.Notification({
-    //         sound: 'sampleaudio',
-    //         show_in_foreground: true,
-    //       })
-    //       .setSound('sampleaudio.mp3')
-    //       .setNotificationId(notification.notificationId)
-    //       .setTitle(notification.title)
-    //       .setBody(notification.body)
-    //       .android.setChannelId('fcm_FirebaseNotifiction_default_channel')
-    //       .android.setColor('#000000')
-    //       .android.setPriority(firebase.notifications.Android.Priority.High);
-  
-    //       firebase.notifications()
-    //         .displayNotification(localNotification)
-    //         .catch(err => console.error(err));
-    //   });
-  
-    //   const channel = new firebase.notifications.Android.Channel('fcm_FirebaseNotifiction_default_channel', 'Demo app name', firebase.notifications.Android.Importance.High)
-    //     .setDescription('Demo app description')
-    //     .setSound('sampleaudio.mp3');
-    //   firebase.notifications().android.createChannel(channel);
-  
-    //   this.notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen) => {
-    //     const { title, body } = notificationOpen.notification;
-    //     console.log('onNotificationOpened:');
-    //     Alert.alert(title, body)
-    //   });
-  
-    //   const notificationOpen = await firebase.notifications().getInitialNotification();
-    //   if (notificationOpen) {
-    //     const { title, body } = notificationOpen.notification;
-    //     console.log('getInitialNotification:');
-    //     Alert.alert(title, body)
-    //   }
-    //   this.messageListener = firebase.messaging().onMessage((message) => {
-    //     console.log("JSON.stringify:", JSON.stringify(message));
-    //   });
-    // }
   render() {
     return (
       <Container>
