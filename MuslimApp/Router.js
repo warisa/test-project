@@ -21,6 +21,7 @@ import fullImage from './screen/fullImage'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
+import historyPrayDetail from './screen/historyPrayDetail';
 
 console.disableYellowBox = true;
 const StackNavigator = createStackNavigator(
@@ -180,6 +181,16 @@ const StackNavigator = createStackNavigator(
         screen: historyDetail,
         navigationOptions:{
             title: 'Detail',
+            headerTintColor: '#fff',
+            headerStyle: {
+                backgroundColor: '#FF8200'
+            }
+        }
+    },
+    PRAYHISTORYDETAIL:{
+        screen: historyPrayDetail,
+        navigationOptions:{
+            title: 'Pray Place Detail',
             headerTintColor: '#fff',
             headerStyle: {
                 backgroundColor: '#FF8200'
