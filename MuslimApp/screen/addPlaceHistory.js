@@ -68,9 +68,17 @@ export default class addPlaceHistory extends Component {
                               <View>
                                   <CardSection>
                                     <View>
+                                      {place.placeTypeId == 1 ?
+                                      (
                                        <TouchableHighlight onPress={() => this.props.navigation.navigate('ADDHISTORYDETAIL',{placeId:place.placeId})}>                        
                                         <Image source={{uri: place.imageName}} style={{width:150,height: 100, margin: 7}}></Image>
-                                      </TouchableHighlight> 
+                                      </TouchableHighlight>
+                                      )
+                                      :
+                                      (<TouchableHighlight onPress={() => this.props.navigation.navigate('PRAYHISTORYDETAIL',{placeId:place.placeId})}>                        
+                                      <Image source={{uri: place.imageName}} style={{width:150,height: 100, margin: 7}}></Image>
+                                       </TouchableHighlight>)
+                                      }
                                     </View>
                                   <View style={styles.container}>
                                       <Text style={{color:'black'}}>{place.placeName}</Text>
