@@ -46,12 +46,20 @@ export default class prayDetail extends Component {
                 <CardSection>
                   <View>
                   <Text style={{color:'black',fontSize:20,fontWeight:'bold'}}>รายละเอียดสถานที่:</Text>
-                  <Text style={styles.fontStyle}>เปิดให้บริการ: </Text>
+                  <Text style={styles.fontStyle}>เวลาให้บริการ: </Text>
                   <Text style={styles.fontStyle}>เบอร์โทรศัพท์: </Text>
                   <Text style={styles.fontStyle}>ที่อยู่ของสถานที่: </Text>
                   </View>
                   <View style={{marginTop:35,flex:1,width:'100%'}}>
-                      <Text style={styles.fontStyle3}>เปิดให้บริการอยู่ในขณะนี้</Text>
+                    {this.state.place.placeOpeningTime == null ?
+                      (
+                        <Text style={styles.fontStyle3}>เปิดให้บริการอยู่ในขณะนี้</Text>
+                      )
+                      :
+                      (
+                        <Text style={styles.fontStyle2}>{this.state.place.placeOpeningTime} - {this.state.place.placeClosingTime}</Text>
+                      )
+                    }
                       <Text style={styles.fontStyle2}>{this.state.place.placeTelno}</Text>
                       <Text style={styles.fontStyle2}>{this.state.place.placeAddress}</Text>
                   </View>
