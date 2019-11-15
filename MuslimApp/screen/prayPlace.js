@@ -86,7 +86,7 @@ export default class prayPlace extends Component {
                                         <Text style={styles.fontStyle2}>
                                         {prayerplace.placeOpeningTime == null ?
                                         (    
-                                            <Text style={{color:'green'}}>เปิดให้บริการอยู่ในขณะนี้</Text>
+                                            <Text style={{color:'green'}}>Open Now</Text>
                                         )
                                         :
                                         (
