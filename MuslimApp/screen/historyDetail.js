@@ -120,7 +120,7 @@ export default class historyDetail extends Component {
             </CardSection>
             <CardSection>
               <View>
-              <Text style={{color:'black',fontSize:20,fontWeight:'bold'}}>รายละเอียดร้าน:</Text>
+              <Text style={{color:'black',fontSize:20,fontWeight:'bold'}}>รายละเอียดร้านอาหาร:</Text>
               {/* <Text style={styles.fontStyle}>เปิดให้บริการ: </Text> */}
               <Text style={styles.fontStyle}>เวลาให้บริการ: </Text>
               <Text style={styles.fontStyle}>ช่วงราคา: </Text>
