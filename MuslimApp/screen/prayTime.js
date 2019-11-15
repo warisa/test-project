@@ -5,6 +5,7 @@ import Axios from 'axios';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconEntypo from 'react-native-vector-icons/Entypo';
+import Card from './Card';
 
 export default class prayTime extends Component {
   constructor(){
@@ -56,7 +57,9 @@ export default class prayTime extends Component {
       }
     }
 
-    componentWillMount() {
+    componentDidMount() {
+      this.getPrayTime()
+      this.checkUserSwitch()
       var that = this;
       var date = new Date().getDate(); //Current Date
       var month = new Date().getMonth() + 1; //Current Month
@@ -116,10 +119,6 @@ export default class prayTime extends Component {
       })
     }
 
-    componentDidMount() {
-      this.getPrayTime()
-      this.checkUserSwitch()
-    }
 
     render() {
           return (
@@ -133,12 +132,94 @@ export default class prayTime extends Component {
                     </ListItem>
                 </View>
               <Content>
-                <List>
-                { 
-                  this.state.time.map( praytime => 
-                      praytime.prayType == "Fajr" ?
+              {
+                this.state.time.map(prayTime => 
+                  <List key = {prayTime.prayTimeId}>
+                     {prayTime.prayType == "Fajr" ?
                       (
-                        <ListItem key={praytime.prayerTimeId} thumbnail>
+                        <ListItem thumbnail>
+                          <Left>
+                            <Icon name="md-alarm" style={{color:'black'}} size={30}/>
+                          </Left>
+                          <Body>
+                            <Text style={{color:'black',fontSize:25}}>{prayTime.prayTime}</Text>
+                            <Text style={{fontSize:20}}>{prayTime.prayType}</Text>
+                          </Body>
+                          <Right>
+                            <Switch onValueChange = {()=>{ this.setState({ Fajr: !this.state.Fajr }); this.postUserSwitch() }} value={this.state.Fajr}/>
+                          </Right>
+                        </ListItem>
+                      ) :
+                      prayTime.prayType == "Dhuhr" ?
+                      (
+                        <ListItem key={prayTime.prayerTimeId} thumbnail>
+                          <Left>
+                            <Icon name="md-alarm" style={{color:'black'}} size={30}/>
+                          </Left>
+                          <Body>
+                            <Text style={{color:'black',fontSize:25}}>{prayTime.prayTime}</Text>
+                            <Text style={{fontSize:20}}>{prayTime.prayType}</Text>
+                          </Body>
+                          <Right>
+                            <Switch onValueChange = {()=>{ this.setState({ Dhuhr: !this.state.Dhuhr }); this.postUserSwitch() }} value={this.state.Dhuhr}/>
+                          </Right>
+                        </ListItem>
+                      ) :
+                      prayTime.prayType == "Asr" ?
+                      (
+                        <ListItem key={prayTime.prayerTimeId} thumbnail>
+                          <Left>
+                            <Icon name="md-alarm" style={{color:'black'}} size={30}/>
+                          </Left>
+                          <Body>
+                            <Text style={{color:'black',fontSize:25}}>{prayTime.prayTime}</Text>
+                            <Text style={{fontSize:20}}>{prayTime.prayType}</Text>
+                          </Body>
+                          <Right>
+                            <Switch onValueChange = {()=>{ this.setState({ Asr: !this.state.Asr }); this.postUserSwitch() }} value={this.state.Asr}/>
+                          </Right>
+                        </ListItem>
+                      ) :
+                      prayTime.prayType == "Maghrib" ?
+                      (
+                        <ListItem key={prayTime.prayerTimeId} thumbnail>
+                          <Left>
+                            <Icon name="md-alarm" style={{color:'black'}} size={30}/>
+                          </Left>
+                          <Body>
+                            <Text style={{color:'black',fontSize:25}}>{prayTime.prayTime}</Text>
+                            <Text style={{fontSize:20}}>{prayTime.prayType}</Text>
+                          </Body>
+                          <Right>
+                            <Switch onValueChange = {()=>{ this.setState({ Maghrib: !this.state.Maghrib }); this.postUserSwitch() }} value={this.state.Maghrib}/>
+                          </Right>
+                        </ListItem>
+                      ) :
+                      prayTime.prayType == "Ishaa" ?
+                      (
+                        <ListItem key={prayTime.prayerTimeId} thumbnail>
+                          <Left>
+                            <Icon name="md-alarm" style={{color:'black'}} size={30}/>
+                          </Left>
+                          <Body>
+                            <Text style={{color:'black',fontSize:25}}>{prayTime.prayTime}</Text>
+                            <Text style={{fontSize:20}}>{prayTime.prayType}</Text>
+                          </Body>
+                          <Right>
+                            <Switch onValueChange = {()=>{ this.setState({ Ishaa: !this.state.Ishaa }); this.postUserSwitch() }} value={this.state.Ishaa}/>
+                          </Right>
+                        </ListItem>
+                      ) : null
+                      }
+                  </List>
+                  )
+              }
+                {/* { 
+                  this.state.time.map( praytime =>
+                    <List key={praytime.prayerTimeId}> 
+                      {praytime.prayType == "Fajr" ?
+                      (
+                        <ListItem thumbnail>
                           <Left>
                             <Icon name="md-alarm" style={{color:'black'}} size={30}/>
                           </Left>
@@ -211,9 +292,10 @@ export default class prayTime extends Component {
                           </Right>
                         </ListItem>
                       ) : null
+                      }
+                    </List>
                   )
-                }
-                </List> 
+                } */}
               </Content> 
             </View>
           </Content>
