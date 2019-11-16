@@ -67,7 +67,7 @@ const StackNavigator = createStackNavigator(
     RESTAURANTDETAIL:{
         screen: restaurantDetail,
         navigationOptions:{
-            title: 'Restaurant Details',
+            title: 'Restaurant Detail',
             headerTintColor: '#fff',
             headerStyle: {
                 backgroundColor: '#FF8200'
@@ -98,7 +98,7 @@ const StackNavigator = createStackNavigator(
     RESTAURANTPRAY:{
         screen: restaurantPray,
         navigationOptions:{
-            title: 'Restaurant Pray',
+            title: 'Restaurant',
             headerTintColor: '#fff',
             headerStyle: {
                 backgroundColor: '#FF8200'
@@ -108,7 +108,7 @@ const StackNavigator = createStackNavigator(
     PRAYDETAIL:{
         screen: prayDetail,
         navigationOptions:{
-            title: 'Pray Place Details',
+            title: 'Pray Place Detail',
             headerTintColor: '#fff',
             headerStyle: {
                 backgroundColor: '#FF8200'
