@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity, AsyncStorage } from 'react-native';
+import { View, Text, Image, TouchableOpacity, AsyncStorage,Linking,TouchableHighlight  } from 'react-native';
 import Card from './Card';
 import CardSection from './CardSection';
 import { ScrollView } from 'react-native-gesture-handler';
-import {Left,Right,Body, Container,Input , List, ListItem} from 'native-base';
+import {Left,Right,Body, Container,Input , List, ListItem,Button} from 'native-base';
 import MapApp from '../component/MapApp';
 import Axios from 'axios';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -154,7 +154,17 @@ export default class restaurantDetail extends Component {
                   <Text style={styles.fontStyle2}>{this.state.place.placePriceRange}</Text>
                   <Text style={styles.fontStyle2}>{this.state.place.placeTelno}</Text>
                   <Text style={styles.fontStyle2}>{this.state.place.placeAddress}</Text>
-                  <Text style={styles.fontStyle2}>{this.state.place.placeLinkPage}</Text>
+                  {this.state.place.placeLinkPage == '' || this.state.place.placeLinkPage == null ?
+                  ( 
+                    <Text style={styles.fontStyle2}>ไม่มี</Text>
+                  )
+                  :
+                  (
+                    <TouchableHighlight  onPress={ ()=>{ Linking.openURL(this.state.place.placeLinkPage)}}>
+                      <Text style={styles.fontStyle5}>{this.state.place.placeLinkPage}</Text>
+                    </TouchableHighlight>
+                  )
+                  }
               </View>
             {/* <Image style={styles.imageStyle} source={{ uri: image }}/> */}
             </CardSection>
@@ -330,6 +340,12 @@ const styles = {
     marginTop: 10,
     color: 'red',
     fontSize: 12
+  },
+  fontStyle5:{
+    marginTop: 10,
+    color: 'blue',
+    fontSize: 12,
+    textDecorationLine: 'underline',
   },
   image:{
     width:100,
